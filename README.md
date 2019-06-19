@@ -35,3 +35,38 @@ Decision making app for roommates, friends, or whatever. Anonymous, easy and fas
 
 - Node 5.10.x or above
 - NPM 3.8.x or above
+
+
+## Mock Up Images
+
+### Homepage
+
+![alt text](/wireframe/home_page.png)
+
+### New Poll Step 1
+
+![alt text](/wireframe/question.png)
+
+### New Poll Step 2
+
+![alt text](/wireframe/options.png)
+
+### New Poll Step 3
+
+![alt text](/wireframe/finalize.png)
+
+### Admin Page
+
+![alt text](/wireframe/admin_page.png)
+
+### New Poll
+
+![alt text](/wireframe/poll.png)
+
+### Thank you for voting page
+
+![alt text](/wireframe/thank_you.png)
+
+### Results
+
+![alt text](/wireframe/results.png)
