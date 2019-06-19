@@ -6,20 +6,20 @@ Decision making app for roommates, friends, or whatever. Anonymous, easy and fas
 
 ## Project Setup
 
-1. Fork this repo
-2. Clone to your machine
+0. Fork this repo
+1. Clone to your machine
 
 ## Getting Started
 
-1. Update the .env file with your correct local information
-3. Install dependencies: `npm i`
-4. Fix to binaries for sass: `npm rebuild node-sass`
-5. Run migrations: `npm run knex migrate:latest`
+0. Update the .env file with your correct local information
+1. Install dependencies: `npm i`
+2. Fix to binaries for sass: `npm rebuild node-sass`
+3. Run migrations: `npm run knex migrate:latest`
   - Check the migrations folder to see what gets created in the DB
-6. Run the seed: `npm run knex seed:run`
+4. Run the seed: `npm run knex seed:run`
   - Check the seeds file to see what gets seeded in the DB
-7. Run the server: `npm run local`
-8. Visit `http://localhost:8080/`
+5. Run the server: `npm run local`
+6. Visit `http://localhost:8080/`
 
 ## Contributing
 
