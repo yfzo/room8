@@ -3,7 +3,6 @@
 //////////////////////////////////////////////////////
 require('dotenv').config();
 const mailgun = require('mailgun-js');
-const uuidv4 = require('uuid/v4');
 
 //////////////////////////////////////////////////////
 // Private functions
@@ -23,45 +22,55 @@ subjectMaker = (template) => {
 //////////////////////////////////////////////////////
 // Public Methods
 //////////////////////////////////////////////////////
-module.exports = {
-  sendMail: function (sendTo, templateData) {
-    const DOMAIN = process.env.MAILGUN_DOMAIN;
-    const mg = mailgun({
-      apiKey: process.env.MAILGUN_KEY,
-      domain: DOMAIN
-    });
-    const {
-      templateVars,
-      templateName
-    } = templateData;
-    const data = {
-      from: `Room8 <postmaster@${DOMAIN}>`,
-      to: sendTo,
-      subject: subjectMaker(templateName),
-      template: templateName,
-      "h:X-Mailgun-Variables": JSON.stringify(templateVars)
+module.exports = (knex) => {
+  return {
+    sendMail: function (sendTo, templateData) {
+      const DOMAIN = process.env.MAILGUN_DOMAIN;
+      const mg = mailgun({
+        apiKey: process.env.MAILGUN_KEY,
+        domain: DOMAIN
+      });
+      const {
+        templateVars,
+        templateName
+      } = templateData;
+      const data = {
+        from: `Room8 <postmaster@${DOMAIN}>`,
+        to: sendTo,
+        subject: subjectMaker(templateName),
+        template: templateName,
+        "h:X-Mailgun-Variables": JSON.stringify(templateVars)
+      }
+      mg.messages().send(data, function (err, body) {
+        if (err) throw err;
+        console.log(body); // Log Mailgun API response
+      })
     }
-    mg.messages().send(data, function (err, body) {
-      if (err) throw err;
-      console.log(body); // Log Mailgun API response
-    })
-  },
+    // TODO [stretch of stretches] - check uniqueness
+    // findByUid: function (id, table, kCallback) {
+    //   knex
+    //     .select("*")
+    //     .from(table)
+    //     .where(knex.raw("poll_id::varchar(255)"), "=", id)
+    //     .asCallback(kCallback)
+    // },
 
-  uniqueId: function (knex, type) {
-    let uniqueId;
-    let found = 1;
-    while (found) {
-      uniqueId = uuidv4();
-      knex
-        .select('id')
-        .from(type)
-        .where('id', '=', uniqueId)
-        .then((results) => {
-          // sets found to number of rows, meaning if the Id doesnt exist yet, found === 0, and loop will stop
-          found = results.rows.length;
-        })
-    }
-    return uniqueId;
+    // uniqueId: function (table, callback) {
+    //   const id = uuidv4().toString();
+    
+    //   this.findByUid(id, table, (err, result) => {
+    //     console.log(result);
+    //     if (result === []) {
+    //       console.log('wtf')
+    //       knex.destroy();
+    //       return this.uniqueId(table, callback);
+         
+    //     }
+    //     knex.destroy();
+    //     return callback(id);
+        
+    //   });
+    // }
   }
-
 }
+
