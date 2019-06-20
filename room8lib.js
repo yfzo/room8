@@ -3,7 +3,6 @@
 //////////////////////////////////////////////////////
 require('dotenv').config();
 const mailgun = require('mailgun-js');
-const uuidv4 = require('uuid/v4');
 
 //////////////////////////////////////////////////////
 // Private functions
@@ -23,7 +22,7 @@ subjectMaker = (template) => {
 //////////////////////////////////////////////////////
 // Public Methods
 //////////////////////////////////////////////////////
-module.exports = function(knex) {
+module.exports = (knex) => {
   return {
     sendMail: function (sendTo, templateData) {
       const DOMAIN = process.env.MAILGUN_DOMAIN;
