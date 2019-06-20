@@ -16,6 +16,7 @@ const knexLogger  = require('knex-logger');
 
 // Seperated Routes for each Resource
 const pollsRoutes = require("./routes/polls");
+const submissionRoutes = require("./routes/submissions");
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -36,21 +37,28 @@ app.use("/styles", sass({
 app.use(express.static("public"));
 
 // Mount all resource routes
-app.use("/api/polls", pollsRoutes(knex));
+app.use("/polls", pollsRoutes(knex));
+app.use("/submissions", submissionRoutes(knex));
 
 // Home page
 app.get("/", (req, res) => {
   res.render("index");
 });
 
-//new form page
-app.get("/polls/new", (req, res) => {
-  res.render("new_poll");
-});
 
-//poll admin page
-app.get("/polls/:id", (req, res) => {
-  res.render("results");
+//show poll for voter page
+app.get("/submissions/:id", (req, res) => {
+
+  let templateVars = {
+    //poll: submissions[req.params.id], // pass poll based on ID
+    err: "submission link is invalid, provide valid link, or contact poll admin"
+  };
+
+  if (req.params.id === submissions.sub_Id){
+    res.render("submission", templateVars);
+  } else {
+    res.render("index", templateVars); //prompt top bander for illegal entry
+  }
 })
 
 app.listen(PORT, () => {
