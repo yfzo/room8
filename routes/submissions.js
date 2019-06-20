@@ -5,24 +5,21 @@ const router  = express.Router();
 
 module.exports = (knex) => {
 
-  router.get("/new", (req, res) => {
-    res.render("new_poll");
-  });
 
   router.get("/:id", (req, res) => {
 
     knex
       .select("*")
-      .from("polls")
-      .where('poll_id', '=', req.params.id)
-      .then((results) => {
+      .from("submissions")
+      .where('sub_id', '=', req.params.id)
+      .then((row) => {
         let templateVars = {
-          polls: results
+          submission: row[0]
         };
-        res.render("results", templateVars);
+        res.render("submission", templateVars);
       }).catch(() => {
         let templateVars = {
-          err: "Invalid results link. Please confirm link."
+          err: "Invalid poll. Please confirm poll link or contact poll admin."
         };
         res.render("index", templateVars);
       })
