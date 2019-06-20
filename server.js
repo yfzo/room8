@@ -43,6 +43,16 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+//new form page
+app.get("/polls/new", (req, res) => {
+  res.render("new_poll");
+});
+
+//poll admin page
+app.get("/polls/:id", (req, res) => {
+  res.render("results");
+})
+
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
