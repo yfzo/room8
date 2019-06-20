@@ -50,19 +50,34 @@ app.get("/polls/new", (req, res) => {
 
 //poll admin page
 app.get("/polls/:id", (req, res) => {
+
   let templateVars = {
-    poll: currentPoll, // pass poll based on ID
+    poll: polls[req.params.id], // pass poll based on ID
     submissions: allSubmissions, //pass in all submissions
+    err: "Poll does not exist, check for valid poll link"
   };
-  res.render("results", templateVars);
+
+  if (req.params.id === polls.poll_Id){
+    res.render("results", templateVars);
+  } else {
+    res.render("index", templateVars); //prompt top bander for illegal entry
+  }
+
 })
 
 //show poll for voter page
 app.get("/submissions/:id", (req, res) => {
+
   let templateVars = {
-    poll: currentPoll, // pass poll based on ID
+    poll: submissions[req.params.id], // pass poll based on ID
+    err: "submission link is invalid, provide valid link, or contact poll admin"
   };
-  res.render("submission", templateVars);
+
+  if (req.params.id === submissions.sub_Id){
+    res.render("submission", templateVars);
+  } else {
+    res.render("index", templateVars); //prompt top bander for illegal entry
+  }
 })
 
 app.listen(PORT, () => {
