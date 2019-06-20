@@ -43,14 +43,26 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-//new form page
+//create new form page
 app.get("/polls/new", (req, res) => {
   res.render("new_poll");
 });
 
 //poll admin page
 app.get("/polls/:id", (req, res) => {
-  res.render("results");
+  let templateVars = {
+    poll: currentPoll, // pass poll based on ID
+    submissions: allSubmissions, //pass in all submissions
+  };
+  res.render("results", templateVars);
+})
+
+//show poll for voter page
+app.get("/submissions/:id", (req, res) => {
+  let templateVars = {
+    poll: currentPoll, // pass poll based on ID
+  };
+  res.render("submission", templateVars);
 })
 
 app.listen(PORT, () => {
