@@ -11,9 +11,63 @@
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
+    <!-- Charts.js-->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script type="text/javascript" src="/scripts/chartSetting.js"></script>
   </head>
 
   <body>
-    <h1>What Results? *No Poll Found*</h1>
+    <% include ../partials/_header %>
+
+    <main class="flex">
+      <div class="flex">
+        <h1>What Results? *No Poll Found*</h1>
+      </div>
+      <div class="flex">
+        <canvas id="resultsChart"></canvas>
+      </div>
+      <div class="flex">
+        <button><a href="">Create New Poll</a></button>
+      </div>
+      <div class="flex">
+        <h2>How it works</h2>
+      </div>
+
+      <div class="flex features">
+        <div class="feature flex">
+          <img src="https://www.placecage.com/300/200">
+          <p>Shiny feature description is shiny!</p>
+        </div>
+        <div class="feature flex">
+          <img src="https://www.placecage.com/300/200">
+          <p>Shiny feature description is shiny!</p>
+        </div>
+        <div class="feature flex">
+          <img src="https://www.placecage.com/300/200">
+          <p>Shiny feature description is shiny!</p>
+        </div>
+      </div>
+
+      <div class="flex emails">
+        <div class="flex heading1"><h3>Instant e-mail notification</h3></div>
+        <div class="flex heading1"><p>Get poll updates and results directly in your inbox! Making decisions has never been easier!</p></div>
+      </div>
+
+      <div class="flex anonymous">
+        <div class="flex heading2"><h3>Make impartial decisions, anonymously!</h3></div>
+        <div class="flex heading2"><p>Make hard decisions with no bias with anonymous polling. You don't need to know who voted on what!</p></div>
+      </div>
+
+      <div class="testimonial flex">
+        <div class="quote flex">
+          <h3>'I use room8 to make all my decisions!'</h3>
+        </div>
+        <div class="quote flex">
+          <p><img class="testimonial" src="https://www.placecage.com/g/100/100" alt=""> - Some guy</p>
+        </div>
+      </div>
+    </main>
+
+    <% include ../partials/_footer %>
   </body>
 </html>
