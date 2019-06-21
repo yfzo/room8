@@ -45,6 +45,41 @@ module.exports = (knex) => {
         if (err) throw err;
         console.log(body); // Log Mailgun API response
       })
+    },
+    weightRow: function (row) {
+      const results = new Array();
+      for (let i in row) {
+        results[i] = row[i] / row.length;
+      }
+      return results;
+    },
+    calculate: function (response) {
+      const results = new Array(response[0].answers.length);
+      results.fill(0);
+      for (let row of response) {
+        let weighted = this.weightRow(row.answers);
+        for (let i in weighted){
+          results[i] += weighted[i];
+        }
+      }
+      return results;
+    },
+
+    getResults: function (poll_id, callback){
+      knex
+        .select("answers")
+        .from("submissions")
+        .where("poll_id", "=", poll_id)
+        .then((res) => {
+          const theThing = this.calculate(res);
+          callback(theThing);
+        })
+        .catch((err) => {
+          console.warn(err);
+        })
+        .finally(() => {
+          knex.destroy();
+        });
     }
     // TODO [stretch of stretches] - check uniqueness
     // findByUid: function (id, table, kCallback) {
