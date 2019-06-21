@@ -88,7 +88,7 @@ module.exports = (knex) => {
             question: row[0].question,
             description: row[0].description,
             options: row[0].options,
-            data: results
+            data: results.score
           };
 
           res.render("results", templateVars);
