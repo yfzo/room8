@@ -16,6 +16,8 @@ module.exports = (knex) => {
     .catch((err) => {console.log(err); throw err})
     .finally(() => knex.destroy());
 
+    res.send("OKAY");
+
   });
 
   router.get("/:id", (req, res) => {

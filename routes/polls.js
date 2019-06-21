@@ -12,7 +12,10 @@ module.exports = (knex) => {
 
     if (req.body) {
 
+      console.log("body has content ", req.body);
+
       let templateVars = {
+        id: req.body.id,
         question: req.body.question,
         description: req.body.description,
         options: req.body.options,
@@ -20,22 +23,26 @@ module.exports = (knex) => {
         err: ""
       };
 
-      let valid = templateVars.question && templateVars.description && templateVars.options.length > 1 && templateVars.email
+      let valid = templateVars.question && templateVars.description && templateVars.options.length > 1 && templateVars.email;
 
       if (valid) {
 
         knex("polls")
-        .insert({'question': templateVars.question, 'description': templateVars.description, 'options': templateVars.options, 'email': templateVars.email })
-        .then(() => console.log("it worked"))
+        .insert({'id': templateVars.id, 'question': templateVars.question, 'description': templateVars.description, 'options': templateVars.options, 'email': templateVars.email, "is_active": true })
+        .then((result) => console.log(result))
         .catch((err) => {console.log(err); throw err})
-        .finally(() => knex.destroy());
-
-        res.render("results", templateVars).status(200);
+        .finally(() => {
+          console.log("FINALLY");
+          knex.destroy()
+        });
+        res.send("OKAY");
+        //res.render("results", templateVars);
 
       } else {
 
+        console.log("VALID: ", valid);
         templateVars.err = "Missing information, please validate."
-        res.render("new_poll", templateVars).status(400);
+        res.render("new_poll", templateVars);
       }
     } else {
       let templateVars = {
