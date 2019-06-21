@@ -5,6 +5,20 @@ const router  = express.Router();
 
 module.exports = (knex) => {
 
+  //submission submit
+  router.post("/:id", (req, res) => {
+    let templateVars = {
+      answers: req.body.answers
+    };
+    knex("polls")
+    .insert({'answers': templateVars.answers})
+    .then(() => console.log("it worked"))
+    .catch((err) => {console.log(err); throw err})
+    .finally(() => knex.destroy());
+
+    res.send("OKAY");
+
+  });
 
   router.get("/:id", (req, res) => {
 
