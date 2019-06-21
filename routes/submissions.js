@@ -19,7 +19,12 @@ module.exports = (knex) => {
     res.send("OKAY");
 
   });
-
+  
+  //tmp: testing submitted view
+  router.get("/submitted", (req, res) => {
+    res.render("submission_received");
+  });
+  
   router.get("/:id", (req, res) => {
 
     knex

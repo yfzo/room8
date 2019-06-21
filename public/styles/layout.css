@@ -69,5 +69,10 @@ footer.flex {
   justify-content: space-evenly;
 }
 
-
-
+/* styles for submitted-view */
+.main-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}

@@ -1,7 +1,79 @@
 body {
   background-color: #EEE;
+}
 
-  h1 {
-    color: #244751;
-  }
+body h1 {
+  color: #244751;
+}
+
+.flex {
+  display: flex;
+}
+
+div {
+  margin: 1em 0;
+}
+
+.container {
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+main {
+  flex-direction: column;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+div.flex {
+  justify-content: space-evenly;
+}
+
+nav {
+  float: right;
+}
+
+div.feature.flex {
+  flex-direction: column;
+}
+
+div.flex.emails {
+  flex-direction: column;
+}
+
+div.flex.anonymous {
+  flex-direction: column;
+}
+
+div.testimonial.flex {
+  flex-direction: column;
+}
+
+div.quote.flex {
+  justify-content: space-evenly;
+}
+
+img.testimonial {
+  border-radius: 50%;
+}
+
+div.flex.heading1 {
+  justify-content: flex-start;
+}
+
+div.flex.heading2 {
+  justify-content: flex-end;
+}
+
+footer.flex {
+  justify-content: space-evenly;
+}
+
+/* styles for submitted-view */
+
+.main-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
