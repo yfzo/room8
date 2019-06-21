@@ -7,6 +7,21 @@ const router  = express.Router();
 
 module.exports = (knex) => {
 
+    //submitting email for results
+    router.put("/:id/email", (req,res) => {
+      let templateVars = {
+        email: req.body.email
+      };
+      console.log("template: ", templateVars)
+      knex("polls")
+      .where({"id": req.params.id})
+      .update({
+        "forward_emails": knex.raw('array_append(forward_emails, ?)', templateVars.email)
+      }).then(() => {
+        res.send("SENT EMAIL");
+      })
+    });
+
   //new form submit
   router.post("/", (req, res) => {
 
