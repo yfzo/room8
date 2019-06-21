@@ -12,12 +12,9 @@ module.exports = (knex) => {
     };
     knex("polls")
     .insert({'answers': templateVars.answers})
-    .then(() => console.log("it worked"))
+    .then(() => res.send("ANSWERS SENT"))
     .catch((err) => {console.log(err); throw err})
     .finally(() => knex.destroy());
-
-    res.send("ANSWERS SENT");
-
   });
 
   router.get("/:id", (req, res) => {
@@ -27,8 +24,6 @@ module.exports = (knex) => {
       .from("submissions")
       .where('id', '=', req.params.id)
       .then((row) => {
-        console.log("FUCKING ROW: ", row);
-
         if (row.length > 0) {
           let templateVars = {
             submission: row[0]
