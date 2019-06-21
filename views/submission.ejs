@@ -3,15 +3,41 @@
   <head>
     <title>Your Poll</title>
 
-    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+    <<link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" type="text/css" />
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-    <script type="text/javascript" src="/scripts/app.js"></script>
   </head>
 
   <body>
-    <h1>Cast your Poll HERE</h1>
+    <% include ../partials/_header %>
+
+    <main class="poll-container">
+      <form method="PUT" action="/submissions/:id">
+        <div class="poll-header">
+          <div id="poll-title">
+            <h2>What do we want for dinner?</h2>
+          </div>
+          <div id="poll-description">
+            <h6>These are the options that are close to us</h6>
+          </div>
+        </div>
+        <h5>Please drag and drop to rank the following options</h5>
+        <div class="options">
+            <% let options = ['Sushi', 'Pizza', 'Pasta', 'All of the aboveAll of the aboveAll of the aboveAll of the aboveAll of the aboveAll of the aboveAll of the above'] %>
+            <% for (option of options) { %>
+              <div class="option"><%= option %></div>
+            <% } %>
+        </div>
+        <div class="submit">
+            <button type="submit">Submit!</button>
+        </div>
+      </form>
+    </main>
+    
+    <% include ../partials/_footer %>
   </body>
 </html>

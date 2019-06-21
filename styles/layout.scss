@@ -91,3 +91,60 @@ footer.flex {
   margin-top: 5rem;
   margin-bottom: 3rem;
 }
+
+/* styles for polls view */ 
+
+.poll-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.poll-container form {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.poll-container div {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.poll-container #poll-title {
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+.poll-container #poll-description {
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+.poll-container h6 {
+  margin: 0;
+}
+
+.poll-container h5 {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.options {
+  width: 60%;
+}
+
+.option {
+  width: 100%;
+  border: 1px solid;
+  border-radius: 5px;
+  border-color: black;
+  padding: 1em 3em;
+  margin: 0.5em 0;
+}
