@@ -7,10 +7,27 @@ const router  = express.Router();
 
 module.exports = (knex) => {
 
+    //submitting email for results
+    router.put("/:id/email", (req,res) => {
+      let templateVars = {
+        email: req.body.email
+      };
+      console.log("template: ", templateVars)
+      knex("polls")
+      .where({"id": req.params.id})
+      .update({
+        "forward_emails": knex.raw('array_append(forward_emails, ?)', templateVars.email)
+      }).then(() => {
+        res.send("SENT EMAIL");
+      })
+    });
+
   //new form submit
   router.post("/", (req, res) => {
 
-    if (req.body) {
+    const bodyContent = JSON.stringify(req.body)!== '{}'
+
+    if (bodyContent) {
 
       console.log("body has content ", req.body);
 
@@ -32,23 +49,22 @@ module.exports = (knex) => {
         .then((result) => console.log(result))
         .catch((err) => {console.log(err); throw err})
         .finally(() => {
-          console.log("FINALLY");
           knex.destroy()
         });
         res.send("OKAY");
         //res.render("results", templateVars);
 
       } else {
-
-        console.log("VALID: ", valid);
         templateVars.err = "Missing information, please validate."
-        res.render("new_poll", templateVars);
+        res.send("FAILED: MISSING INFORMATION");
+        //res.render("new_poll", templateVars);
       }
     } else {
       let templateVars = {
         err: "No information entered into form, Please fill in all fields"
       }
-      res.render("new_poll", templateVars).status(400);
+      res.send("FAILED: NO INFORMATION ENTERED");
+      //res.render("new_poll", templateVars).status(400);
     }
   });
 
@@ -61,7 +77,7 @@ module.exports = (knex) => {
     knex
       .select("*")
       .from("polls")
-      .where('poll_id', '=', req.params.id)
+      .where('id', '=', req.params.id)
       .then((results) => {
         let templateVars = {
           polls: results

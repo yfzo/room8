@@ -2,6 +2,7 @@
 
 const express = require('express');
 const router  = express.Router();
+const uuidv4 = require('uuid/v4');
 
 module.exports = (knex) => {
 
@@ -10,13 +11,13 @@ module.exports = (knex) => {
     let templateVars = {
       answers: req.body.answers
     };
-    knex("polls")
-    .insert({'answers': templateVars.answers})
+    knex("submissions")
+    .insert({"id": uuidv4(), 'answers': templateVars.answers, "poll_id": req.params.id})
     .then(() => console.log("it worked"))
     .catch((err) => {console.log(err); throw err})
     .finally(() => knex.destroy());
 
-    res.send("OKAY");
+    res.send("ANSWERS SENT");
 
   });
   
@@ -30,19 +31,24 @@ module.exports = (knex) => {
     knex
       .select("*")
       .from("submissions")
-      .where('sub_id', '=', req.params.id)
+      .where('id', '=', req.params.id)
       .then((row) => {
-        let templateVars = {
-          submission: row[0]
-        };
-        res.render("submission", templateVars);
-      }).catch(() => {
-        let templateVars = {
-          err: "Invalid poll. Please confirm poll link or contact poll admin."
-        };
-        res.render("index", templateVars);
+        if (row.length > 0) {
+          let templateVars = {
+            submission: row[0]
+          };
+          res.send("LOAD POLL, CORRECT ID");
+          //res.render("submission", templateVars);
+        }else {
+          let templateVars = {
+            err: "Invalid poll. Please confirm poll link or contact poll admin."
+          };
+          res.send("LOAD INDEX, INVALID POLL ID");
+          //res.render("index", templateVars);
+        }
+      }).catch((err) => {
+        throw err;
       })
-
   });
 
   return router;
