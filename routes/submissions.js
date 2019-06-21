@@ -16,7 +16,7 @@ module.exports = (knex) => {
     .catch((err) => {console.log(err); throw err})
     .finally(() => knex.destroy());
 
-    res.send("OKAY");
+    res.send("ANSWERS SENT");
 
   });
 
@@ -25,19 +25,26 @@ module.exports = (knex) => {
     knex
       .select("*")
       .from("submissions")
-      .where('sub_id', '=', req.params.id)
+      .where('id', '=', req.params.id)
       .then((row) => {
-        let templateVars = {
-          submission: row[0]
-        };
-        res.render("submission", templateVars);
-      }).catch(() => {
-        let templateVars = {
-          err: "Invalid poll. Please confirm poll link or contact poll admin."
-        };
-        res.render("index", templateVars);
-      })
+        console.log("FUCKING ROW: ", row);
 
+        if (row.length > 0) {
+          let templateVars = {
+            submission: row[0]
+          };
+          res.send("LOAD POLL, CORRECT ID");
+          //res.render("submission", templateVars);
+        }else {
+          let templateVars = {
+            err: "Invalid poll. Please confirm poll link or contact poll admin."
+          };
+          res.send("LOAD INDEX, INVALID POLL ID");
+          //res.render("index", templateVars);
+        }
+      }).catch((err) => {
+        throw err;
+      })
   });
 
   return router;
