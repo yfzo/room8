@@ -18,16 +18,20 @@
     <% include ../partials/_header %>
 
     <main class="main-container">
-      <h2>Thank you for voting!</h2>
-      <h6>If you would like to see the results at the end of the poll, please enter your email below</h6>
+      <div>
+        <h2>Thank you for voting!</h2>
+        <h6>If you would like to see the results at the end of the poll, please enter your email below</h6>
+      </div>
       <div class="email-input">
           <form method="PUT" action="/polls/:id">
-            <input id="email" type="email" name="email" placeholder="room8@makingdecisions.ca">
+            <div><input id="email" type="email" name="email" placeholder="room8@makingdecisions.ca"></div>
             <button type="submit">Email Me</button>
           </form>
       </div>
-      <h2>Use room8 to Make Decisions Today</h2>
-      <a href="/polls/new"><button type="submit"> New Poll</button></a>
+      <div class="new-poll-link">
+        <h5>Use room8 to Make Decisions Today</h5>
+        <a href="/polls/new"><button type="submit"> New Poll</button></a>
+      </div>
     </main>
     
     <% include ../partials/_footer %>
