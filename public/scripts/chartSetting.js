@@ -34,7 +34,7 @@ let myChart = new Chart(ctx, {
                 },
                 scaleLabel: {
                   display: true,
-                  labelString: 'Votes'
+                  labelString: 'Scores'
                 }
             }],
             xAxes: [{
