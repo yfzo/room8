@@ -14,9 +14,7 @@ module.exports = (knex) => {
   //new form submit
   router.post("/", (req, res) => {
 
-    const bodyContent = JSON.stringify(req.body) !== '{}'
-
-    if (bodyContent) {
+    if (JSON.stringify(req.body) !== '{}') {
 
       let templateVars = {
         id: uuidv4(),
@@ -72,6 +70,7 @@ module.exports = (knex) => {
         err: "No information entered into form, Please fill in all fields"
       }
       res.send("FAILED: NO INFORMATION ENTERED");
+      // TODO - when res.render is implemented, flip the if and else blocks (i.e. body === {} instead of body !== {})
       //res.render("new_poll", templateVars).status(400);
     }
   });
