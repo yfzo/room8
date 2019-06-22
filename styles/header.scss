@@ -3,13 +3,19 @@
     font-family: 'Ubuntu', sans-serif;
     font-size: 3em;
     letter-spacing: 1rem;
-  }
+}
 
-  .logo-text>span {
+.logo-text>span {
     color: #5BBD9E;
     font-family: 'Ubuntu', sans-serif;
     font-size: 0.75em;
-  }
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
 header div {
     margin: 0;
@@ -26,11 +32,11 @@ button {
     color: #fff;
     display: inline-block;
     font-family: 'Montserrat', sans-serif;
-    font-size: 0.75rem;
+    font-size: 1rem;
     letter-spacing: 0.1rem;
     min-width: 12rem;
     overflow: hidden;
-    padding: 1.25rem 1.5rem;
+    padding: 1rem 1.5rem;
     position: relative;
     text-decoration: none;
     text-transform: uppercase;

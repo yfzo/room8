@@ -14,8 +14,8 @@ div {
 main {
   flex-direction: column;
   max-width: 1280px;
-  margin: 0 auto;
   width: 80%;
+  margin: 0 auto;
 }
 
 div.flex {
