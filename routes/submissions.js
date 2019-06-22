@@ -59,7 +59,6 @@ module.exports = (knex) => {
       .join("polls", "poll_id", "=", "polls.id")
       .where('submissions.id', '=', req.params.id)
       .then((row) => {
-        console.log("ROOWWSSSS: ", row[0].question);
         if (row.length > 0) {
           let templateVars = {
             question: row[0].question,
