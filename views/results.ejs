@@ -57,12 +57,14 @@
             <th></th>
             <th></th>
           </tr>
+          <% links.forEach( (element) => { %>
           <tr>
-            <td>Add status light</td>
-            <td id="subLink">texAdd link</td>
+            <td>STATUS</td>
+            <td id="subLink"><%= element %></td>
             <td><button onclick="copyURL('#subLink')">Copy URL</button></td>
             <td><button>DEACTIVATE</button></td>
           </tr>
+          <% }) %>
         </table>
 
         <p>Generate new URL for additional voter</p>

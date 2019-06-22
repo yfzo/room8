@@ -136,24 +136,28 @@ module.exports = (knex) => {
   //render admin page filtered based on poll id
   router.get("/:id", (req, res) => {
 
-    console.log("INSIDE RES", req.params);
+    const templateVars = {};
 
     //get information about the poll
-    knex("polls")
-      .select("*")
-      .from("polls")
-      .where('polls.id', '=', req.params.id) //params is only passing an ID
+    knex.select(knex.raw("polls.id, question, description, options, submissions.id AS sub_id")).from('polls').join('submissions', 'polls.id', '=', 'submissions.poll_id')
+      .where('polls.id', '=',req.params.id) //params is only passing an ID
       .then((row) => {
 
         //get submissions value
-
         room8.getResults(req.params.id, (results) => {
-          const templateVars = {
-            question: row[0].question,
-            description: row[0].description,
-            options: row[0].options,
-            data: results.scores
-          };
+
+          templateVars["question"] = row[0].question;
+          templateVars["description"] = row[0].description;
+          templateVars["options"] = row[0].options;
+          templateVars["data"] = results.scores;
+
+          let links = [];
+          for (let i = 0; i < row.length; i++){
+            console.log(row[i]);
+            links.push(row[i].sub_id);
+          }
+          templateVars["links"] = links;
+
           res.render("results", templateVars);
         });
 
@@ -165,6 +169,7 @@ module.exports = (knex) => {
         res.render("index", templateVars);
       });
   });
+
 
   return router;
 }
