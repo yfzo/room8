@@ -42,6 +42,7 @@ module.exports = (knex) => {
             // Create Submissions, inset into table
             // get hostname, add port if localhost
             const hostname = (req.hostname === 'localhost' ? `${req.hostname}:${PORT}` : req.hostname);
+            const emailTo = templateVars.email;
             const mailerData = {
               templateName: "new_poll",
               emailVars: {
@@ -72,7 +73,7 @@ module.exports = (knex) => {
             // Call all promises, send mail in .then() so all sub links are included
             Promise.all(submissionPromises)
               .then(() => {
-                room8.sendMail('lukasbhorak@gmail.com', mailerData);
+                room8.sendMail(emailTo, mailerData);
               })
             // send email
 

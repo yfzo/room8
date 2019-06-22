@@ -765,3 +765,18 @@ input.num {
 li {
   padding: 0;
 }
+
+
+p.plusButton {
+  color: #ab9e9e;
+  font-weight: 400;
+  font-size: 1.5em;
+}
+
+a.plusButton:hover {
+  text-decoration: none;
+}
+
+section.options {
+  width: 100% !important;
+}

@@ -58,8 +58,9 @@ module.exports = (knex) => {
       return results;
     },
     calculate: function (response) {
-      const results = new Array(response[0].answers.length);
+      let results = new Array(response[0].answers.length);
       const responded = {};
+      // Seed results with 0s
       results.fill(0);
       for (let row of response) {
         let weighted = this.weightRow(row.answers);
@@ -69,8 +70,12 @@ module.exports = (knex) => {
             results[i] += weighted[i];
           }
         }
-
       }
+
+      // convert to percentages (4 sig-figs)
+      let totalScore = 0;
+      results.forEach( score => totalScore += score);
+      results = results.map( x => Math.round((x / totalScore) * 10000) / 10000);
       return {
         "responses": responded,
         "scores": results
@@ -86,8 +91,7 @@ module.exports = (knex) => {
           if (res.length > 0) {
             const theThing = this.calculate(res);
             callback(theThing);
-          }
-          else{
+          } else {
             callback(`No results found for ${poll_id}`);
           }
 
