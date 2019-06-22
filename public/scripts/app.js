@@ -116,9 +116,10 @@ $('input.final').click(function(){
   $('p.description').text($('textarea[name="description"]').val());
   $('ul.arrow').html('');
   let i = 1;
-  for (elem of $('input[name="option"]').toArray()) {
-    $('ul.arrow li::before').css('display', 'none');
-    $('ul.arrow').append(`<li style="list-style: none">${elem.value}</li>`)
+  for (elem of $('input[name="options"]').toArray()) {
+    // $('ul.arrow li::before').css('display', 'none');
+    let entry = elem.value.replace(' ', '');
+    $('ul.arrow').append(`<li style="list-style: none">- ${entry}</li>`)
     i++
   }
 })
@@ -141,25 +142,32 @@ $('input.final').click(function(){
 // });
 
   $("div.submit button").click(function(e){
-    let json = {};
     e.preventDefault();
-    json['answers'] = [];
+    let ranking = [];
+    let options = ["Cat", "Dog", "Snake", "Apple"];
+    let answers = [];
     $( `[data-groups] [data-group='answers'] [data-item]` ).each(function( index ) {
-      json['answers'].push($(this).text());
-      console.log(json)
+      ranking.push($(this).text());
     });
-    let json2 = JSON.stringify(json["answers"])
+    for (opt of options) {
+      let i = ranking.indexOf(opt);
+      answers.push(options.length - i);
+    }
+    let jsonRank = JSON.stringify(answers)
     $.ajax({
       url: $('form#new-submission').attr('action'),
       type: 'POST',
-      data : {answers: json2},
+      data : {answers: jsonRank},
       success: function(){
         console.log('form submitted.');
-        console.log(this.data);
       }
     });
   });
 // });
+
+// array where item zero is first option in order and each index is an integer of a score
+
+
 
 
 
