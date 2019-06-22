@@ -2,17 +2,61 @@
 <html lang="en">
   <head>
     <title>room8 – New Poll</title>
-    <title>New Poll</title>
 
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" type="text/css" />
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
   </head>
 
   <body>
-    <h1>New Poll Page!</h1>
+    <% include ../partials/_header %>
+  <!-- multistep form -->
+  <form id="msform" action="/polls" method="POST">
+    <!-- progressbar -->
+    <ul id="progressbar">
+      <li class="active">What do you want to find out?</li>
+      <li>What are the options?</li>
+      <li>Finalize Poll</li>
+    </ul>
+    <!-- fieldsets -->
+    <fieldset>
+      <h2 class="fs-title">What do you want to find out?</h2>
+      <h3 class="fs-subtitle">Let's get started!</h3>
+      <input type="text" name="question" placeholder="Question" />
+      <textarea type="text" name="description" placeholder="Description (Optional)"></textarea>
+      <input type="button" name="next" class="next action-button" value="Next" />
+    </fieldset>
+    <fieldset>
+      <h2 class="fs-title">What are the options?</h2>
+      <h3 class="fs-subtitle">Please list all of the rankable options below:</h3>
+      <span class="optionInput"><input type="text" name="options" placeholder="An option" /> <span class="close"><a href="#" class="close"></a></span></span>
+      <span class="optionInput"><input type="text" name="options" placeholder="An option" /> <span class="close"><a href="#" class="close"></a></span></span>
+      <span class="optionInput"><input type="text" name="options" placeholder="An option" /> <span class="close"><a href="#" class="close"></a></span></span>
+      <span class="flex plus"><p>+</p></span>
+      <input type="button" name="previous" class="previous action-button" value="Previous" />
+      <input type="button" name="next" class="next action-button final" value="Next" />
+    </fieldset>
+    <fieldset>
+      <h2 class="fs-title">Finalize Poll</h2>
+      <h3 class="fs-subtitle">Please review details and confirm submission below:</h3>
+      <p class="category">Question:</p>
+      <p class="question">Empty.</p>
+      <p class="category">Description:</p>
+      <p class="description">Empty.</p>
+      <p class="category">Options:</p>
+      <ul class="arrow"></ul>
+      <h3 class="fs-subtitle">Please enter the number of poll takers:</h3>
+      <input type="number" name="numOfPeople" placeholder="1" />
+      <input type="button" name="previous" class="previous action-button" value="Previous" />
+      <input type="submit" name="submit" class="submit action-button" value="Submit" />
+    </fieldset>
+  </form>
+    <% include ../partials/_footer %>
   </body>
 </html>
