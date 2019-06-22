@@ -6,6 +6,7 @@ body h1 {
   color: #244751;
 }
 
+
 body {
   background-color: #EEE;
 }
@@ -19,6 +20,7 @@ body h1 {
 }
 
 div {
+  margin: 1em 0;
   margin: 1em 0 0 0;
 }
 
@@ -75,6 +77,85 @@ div.flex.heading2 {
 
 footer.flex {
   justify-content: space-evenly;
+}
+
+/* styles for submitted-view */
+.main-container div {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-container h6 {
+  margin: 20px 0;
+}
+
+.main-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.main-container .new-poll-link {
+  margin-top: 5rem;
+  margin-bottom: 3rem;
+}
+
+/* styles for polls view */
+.poll-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.poll-container form {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.poll-container div {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.poll-container #poll-title {
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+.poll-container #poll-description {
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+.poll-container h6 {
+  margin: 0;
+}
+
+.poll-container h5 {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.options {
+  width: 60%;
+}
+
+.option {
+  width: 100%;
+  border: 1px solid;
+  border-radius: 5px;
+  border-color: black;
+  padding: 1em 3em;
+  margin: 0.5em 0;
   position: fixed;
   left: 0;
   right: 0;
