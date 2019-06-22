@@ -106,7 +106,7 @@ $(".submit").click(function(e){
 
 })
 
-$("a.close").click(function(event) {
+$("section.options").on('click', 'a.close', function(event) {
   event.preventDefault();
   $(this).parents('span.optionInput').remove();
 });
@@ -167,7 +167,9 @@ $('input.final').click(function(){
 
 // array where item zero is first option in order and each index is an integer of a score
 
-
+$('a.plusButton').click(function(e){
+  $( "section.options" ).append('<span class="optionInput"><input type="text" name="options" placeholder="An option" /> <span class="close"><a href="#" class="close"></a></span></span>');
+})
 
 
 
