@@ -102,7 +102,7 @@ footer.flex {
   margin-bottom: 3rem;
 }
 
-/* styles for polls view */ 
+/* styles for polls view */
 
 .poll-container {
   display: flex;
@@ -777,5 +777,9 @@ input[name="voter-number"] {
 
 .flex.plus {
   justify-content: space-evenly;
+}
+
+pre {
+  display: none !important;
 }
 
