@@ -1,8 +1,9 @@
 "use strict";
 
 const express = require('express');
-const router = express.Router();
-const uuidv4 = require("uuid/v4");
+const router  = express.Router();
+const uuidv4  = require("uuid/v4");
+const PORT    = process.env.PORT || 8080;
 
 
 
@@ -37,7 +38,44 @@ module.exports = (knex) => {
             'email': templateVars.email,
             "is_active": true
           })
-          .then((result) => {
+          .then(() => {
+            // Create Submissions, inset into table
+            // get hostname, add port if localhost
+            const hostname = (req.hostname === 'localhost' ? `${req.hostname}:${PORT}` : req.hostname);
+            const mailerData = {
+              templateName: "new_poll",
+              emailVars: {
+                pollName: templateVars.question,
+                hostname: hostname, // hostname from req?
+                pollID: templateVars.id,
+                subLinks: []
+              }
+            }
+            // Compile submission promies into an array to be called later
+            let submissionPromises = []
+            for (let i = 0; i < parseInt(req.body.numOfPeople); i++) {
+              let subID = uuidv4();
+
+              submissionPromises.push(knex("submissions")
+                .insert({
+                  id: subID,
+                  "poll_id": templateVars.id,
+                  "answers": null
+                })
+                .then(() => {
+                  // Confirmation of successful insertion
+                  mailerData.emailVars.subLinks.push(subID);
+                  console.log('Inserted things ( ಠ ͜ʖಠ)');
+                })
+              )
+            }
+            // Call all promises, send mail in .then() so all sub links are included
+            Promise.all(submissionPromises)
+              .then(() => {
+                room8.sendMail('lukasbhorak@gmail.com', mailerData);
+              })
+            // send email
+
             res.send("OKAY");
           })
           .catch((err) => {
@@ -45,19 +83,6 @@ module.exports = (knex) => {
             throw err
           });
 
-        console.log('some shit: ', req.body.numOfPeople)
-        //add submissions based on number of pollers allowed
-        for (let i = 0; i < parseInt(req.body.numOfPeople); i++) {
-          knex("submissions")
-            .insert({
-              id: uuidv4(),
-              "poll_id": templateVars.id,
-              "answers": null
-            })
-            .then(() => {
-              console.log('Inserted things ( ಠ ͜ʖಠ)');
-            })
-        }
         //res.render("results", templateVars);
 
       } else {
@@ -90,7 +115,7 @@ module.exports = (knex) => {
       .then((row) => {
 
         //get submissions value
-        room8.getResults('your_poll_id', (results) => {
+        room8.getResults(req.params.id, (results) => {
           const templateVars = {
             question: row[0].question,
             description: row[0].description,

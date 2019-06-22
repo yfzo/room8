@@ -31,7 +31,7 @@ module.exports = (knex) => {
         domain: DOMAIN
       });
       const {
-        templateVars,
+        emailVars,
         templateName
       } = templateData;
       const data = {
@@ -39,7 +39,7 @@ module.exports = (knex) => {
         to: sendTo,
         subject: subjectMaker(templateName),
         template: templateName,
-        "h:X-Mailgun-Variables": JSON.stringify(templateVars)
+        "h:X-Mailgun-Variables": JSON.stringify(emailVars)
       }
       mg.messages().send(data, function (err, body) {
         if (err) throw err;
