@@ -50,7 +50,6 @@ module.exports = (knex) => {
 
 
   //get submission form where knex filter is based on submission ID
-
   router.get("/:id", (req, res) => {
 
     knex
@@ -65,8 +64,8 @@ module.exports = (knex) => {
             description: row[0].description,
             options: row[0].options,
           };
-          res.send("LOAD POLL, CORRECT ID");
-          //res.render("submission", templateVars);
+          //res.send("LOAD POLL, CORRECT ID");
+          res.render("submission", templateVars);
         }else {
           let templateVars = {
             err: "Invalid poll. Please confirm poll link or contact poll admin."
