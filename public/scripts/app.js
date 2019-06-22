@@ -89,6 +89,8 @@ $(".previous").click(function(){
   });
 });
 
+// form control
+
 $(".submit").click(function(e){
   e.preventDefault();
 
@@ -120,5 +122,45 @@ $('input.final').click(function(){
     i++
   }
 })
+
+// $(`body`).on(`DOMSubtreeModified`, `[data-groups]`, function() {
+    // let json = {};
+// $( `[data-groups] [data-group]` ).each(function( index ) {
+//   json[$(this).data("group")] = []; // how many groups
+// });
+// json['answers'] = [];
+//  $( `[data-groups] [data-group='answers'] [data-item]` ).each(function( index ) {
+//     json['answers'].push($(this).text());
+//   });
+// console.log(json);
+
+// Object.entries(json).forEach(([key, value]) => {
+//   $( `[data-groups] [data-group='${key}'] [data-item]` ).each(function( index ) {
+//     json[key].push($(this).text());
+//   });
+// });
+
+  $("div.submit button").click(function(e){
+    let json = {};
+    e.preventDefault();
+    json['answers'] = [];
+    $( `[data-groups] [data-group='answers'] [data-item]` ).each(function( index ) {
+      json['answers'].push($(this).text());
+      console.log(json)
+    });
+    let json2 = JSON.stringify(json["answers"])
+    $.ajax({
+      url: $('form#new-submission').attr('action'),
+      type: 'POST',
+      data : {answers: json2},
+      success: function(){
+        console.log('form submitted.');
+        console.log(this.data);
+      }
+    });
+  });
+// });
+
+
 
 });
