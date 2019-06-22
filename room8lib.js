@@ -95,9 +95,6 @@ module.exports = (knex) => {
         .catch((err) => {
           console.warn(err);
         })
-        .finally(() => {
-          knex.destroy();
-        });
     }
     // TODO [stretch of stretches] - check uniqueness
     // findByUid: function (id, table, kCallback) {
