@@ -139,7 +139,7 @@ module.exports = (knex) => {
     const templateVars = {};
 
     //get information about the poll
-    knex.select(knex.raw("polls.id, question, description, options, submissions.id AS sub_id")).from('polls').join('submissions', 'polls.id', '=', 'submissions.poll_id')
+    knex.select(knex.raw("polls.id, question, description, answers, options, submissions.id AS sub_id")).from('polls').join('submissions', 'polls.id', '=', 'submissions.poll_id')
       .where('polls.id', '=',req.params.id) //params is only passing an ID
       .then((row) => {
 
@@ -152,11 +152,19 @@ module.exports = (knex) => {
           templateVars["data"] = results.scores;
 
           let links = [];
+          let answersProvided = [];
           for (let i = 0; i < row.length; i++){
-            console.log(row[i]);
             links.push(row[i].sub_id);
+
+            if (row[i].answers !== null){
+              answersProvided.push(true);
+            } else {answersProvided.push(false);}
+
+            console.log("ROWS ANSWER IS ", row[i].answers)
+            console.log(links[i], " has an ", answersProvided[i], "link!!!!")
           }
           templateVars["links"] = links;
+          templateVars["answersProvided"] = answersProvided;
 
           res.render("results", templateVars);
         });

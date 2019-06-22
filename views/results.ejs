@@ -57,14 +57,19 @@
             <th></th>
             <th></th>
           </tr>
-          <% links.forEach( (element) => { %>
+          <% for (let i = 0; i < links.length; i++) { %>
           <tr>
-            <td>STATUS</td>
-            <td id="subLink"><%= element %></td>
+            <% if (answersProvided) { %>
+            <td>INACTIVE</td>
+            <% } else { %>
+              <td>ACTIVE</td>
+            <% } %>
+            <td id="subLink"><%= links[i] %></td>
+            <% if (!answersProvided) { %>
             <td><button onclick="copyURL('#subLink')">Copy URL</button></td>
-            <td><button>DEACTIVATE</button></td>
+            <% } %>
           </tr>
-          <% }) %>
+          <% } %>
         </table>
 
         <p>Generate new URL for additional voter</p>
