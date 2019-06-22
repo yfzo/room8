@@ -15,10 +15,12 @@ module.exports = (knex) => {
   router.post("/", (req, res) => {
 
     const bodyContent = JSON.stringify(req.body)!== '{}'
+    console.log("REQ BODY: ",req.body)
 
     if (bodyContent) {
 
       console.log("body has content ", req.body);
+
 
       let templateVars = {
         id: uuidv4(),
@@ -29,7 +31,8 @@ module.exports = (knex) => {
         err: ""
       };
 
-      let valid = templateVars.question && templateVars.description && templateVars.options.length > 1 && templateVars.email;
+      let valid = templateVars.question && (templateVars.description !== undefined) && (templateVars.options.length > 1);
+      console.log("valid: ", valid);
 
       if (valid) {
 
@@ -45,7 +48,7 @@ module.exports = (knex) => {
         });
 
         //add submissions based on number of pollers allowed
-        for (let i = 0; i < req.params.numOfPoll; i++ ) {
+        for (let i = 0; i < req.params.numOfPeople; i++ ) {
           knex("submissions")
           .insert({id: uuidv4(), "poll_id": templateVars.id , "answers": null})
           .then((result) => {
