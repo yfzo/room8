@@ -1,11 +1,22 @@
 .logo-text {
   color: #3A1B3D;
+  font-family: 'Ubuntu', sans-serif;
   font-size: 3em;
+  letter-spacing: 1rem;
 }
 
 .logo-text > span {
   color: #5BBD9E;
+  font-family: 'Ubuntu', sans-serif;
   font-size: 0.75em;
+}
+
+header div {
+  margin: 0;
+}
+
+#nav-bar {
+  padding: 0.75em 0;
 }
 
 button {
@@ -43,4 +54,14 @@ button .button-text {
   position: relative;
   transition: color 0.2s ease;
   z-index: 1;
+}
+
+.row {
+  margin: 0;
+}
+
+header {
+  -webkit-box-shadow: 0 8px 6px -6px #a888ac;
+  -moz-box-shadow: 0 8px 6px -6px #a888ac;
+  box-shadow: 0 8px 6px -6px #a888ac;
 }

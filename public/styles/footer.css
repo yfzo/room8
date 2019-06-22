@@ -1,7 +1,21 @@
 footer.flex {
   justify-content: space-evenly;
-  position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+/* Trick */
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+footer {
+  margin-top: auto;
 }

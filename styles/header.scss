@@ -1,13 +1,23 @@
 .logo-text {
     color: #3A1B3D;
+    font-family: 'Ubuntu', sans-serif;
     font-size: 3em;
+    letter-spacing: 1rem;
   }
 
   .logo-text>span {
     color: #5BBD9E;
+    font-family: 'Ubuntu', sans-serif;
     font-size: 0.75em;
   }
 
+header div {
+    margin: 0;
+}
+
+#nav-bar {
+    padding: 0.75em 0;
+}
 
 button {
     // background: linear-gradient(to top, #5BBD9E, #C3E7DB);
@@ -44,17 +54,14 @@ button {
       transition: color 0.2s ease;
       z-index: 1;
     }
+}
 
-    // &:after {
-    //     background: #C3E7DB;
-    //     content: '';
-    //     opacity: 0;
-    //     position: absolute;
-    //       top: 0;
-    //       right: 0;
-    //       bottom: 0;
-    //       left: 0;
-    //     transition: opacity 0.2s ease;
-    //     z-index: 0;
-    //   }
+.row {
+    margin: 0;
+}
+
+header {
+	-webkit-box-shadow: 0 8px 6px -6px rgb(168, 136, 172);
+	   -moz-box-shadow: 0 8px 6px -6px rgb(168, 136, 172);
+	        box-shadow: 0 8px 6px -6px rgb(168, 136, 172);
 }
