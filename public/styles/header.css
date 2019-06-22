@@ -1,0 +1,46 @@
+.logo-text {
+  color: #3A1B3D;
+  font-size: 3em;
+}
+
+.logo-text > span {
+  color: #5BBD9E;
+  font-size: 0.75em;
+}
+
+button {
+  background-color: #5BBD9E;
+  border-radius: 2rem;
+  color: #fff;
+  display: inline-block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.1rem;
+  min-width: 12rem;
+  overflow: hidden;
+  padding: 1.25rem 1.5rem;
+  position: relative;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+button:hover, button:focus {
+  outline: none;
+  /*Prevent the default browser focus style. We don't need it since we're making our own.*/
+  background: #daf3eb;
+  transition: opacity 0.2s ease;
+}
+
+button:hover.button-text, button:focus.button-text {
+  color: #541E5E;
+}
+
+button:hover:after, button:focus:after {
+  opacity: 1;
+}
+
+button .button-text {
+  position: relative;
+  transition: color 0.2s ease;
+  z-index: 1;
+}
