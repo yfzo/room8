@@ -22,6 +22,7 @@ module.exports = (knex) => {
     // .finally(() => knex.destroy());
   });
 
+
   router.post("/:id", (req, res) => {
     console.log(req.body);
     let templateVars = {
@@ -47,7 +48,9 @@ module.exports = (knex) => {
   //   .finally(() => knex.destroy());
   // });
 
+
   //get submission form where knex filter is based on submission ID
+
   router.get("/:id", (req, res) => {
 
     knex

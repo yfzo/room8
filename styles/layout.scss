@@ -6,6 +6,7 @@ body h1 {
   color: #244751;
 }
 
+
 body {
   background-color: #EEE;
 }
@@ -13,6 +14,7 @@ body {
 body h1 {
   color: #244751;
 }
+
 
 .flex {
   display: flex;
@@ -43,6 +45,109 @@ nav {
 
 div.feature.flex {
   flex-direction: column;
+}
+
+div.flex.emails {
+  flex-direction: column;
+}
+
+div.flex.anonymous {
+  flex-direction: column;
+}
+
+div.testimonial.flex {
+  flex-direction: column;
+}
+
+div.quote.flex {
+  justify-content: space-evenly;
+}
+
+img.testimonial {
+  border-radius: 50%;
+}
+
+div.flex.heading1 {
+  justify-content: flex-start;
+}
+
+div.flex.heading2 {
+  justify-content: flex-end;
+}
+
+footer.flex {
+  justify-content: space-evenly;
+}
+
+/* styles for submitted-view */
+
+.main-container div {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-container h6 {
+  margin: 20px 0;
+}
+
+.main-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.main-container .new-poll-link {
+  margin-top: 5rem;
+  margin-bottom: 3rem;
+}
+
+/* styles for polls view */ 
+
+.poll-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.poll-container form {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.poll-container div {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.poll-container #poll-title {
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+.poll-container #poll-description {
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+.poll-container h6 {
+  margin: 0;
+}
+
+.poll-container h5 {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.options {
+  width: 60%;
 }
 
 div.flex.emails {
@@ -673,6 +778,4 @@ input[name="voter-number"] {
 .flex.plus {
   justify-content: space-evenly;
 }
-
-
 

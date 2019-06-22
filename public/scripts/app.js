@@ -97,7 +97,7 @@ $(".submit").click(function(e){
   $.ajax({
       url: $('form#msform').attr('action'),
       type: 'POST',
-      data : $('#form').serialize(),
+      data : $('#msform').serialize(),
       success: function(){
         console.log('form submitted.');
         console.log(this.data);
