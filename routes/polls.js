@@ -79,36 +79,64 @@ module.exports = (knex) => {
     res.render("new_poll");
   });
 
+  //route to get SCORES
+  router.get("/:id/score", (req, res) => {
+    room8.getResults(req.params.id , (results) => {
+      knex("polls")
+      .select("*")
+      .from("polls")
+      .where('polls.id', '=', req.params.id) //params is only passing an ID
+      .then((row) => {
+
+        //get submissions value
+        room8.getResults(req.params.id , (results) => {
+          const templateVars = {
+            options: row[0].options,
+            scores: results.scores
+          };
+          res.send(templateVars);
+        });
+
+      }).catch(() => {
+        let templateVars = {
+          err: "Invalid results link. Please confirm link."
+        };
+        res.render("index", templateVars);
+      });
+    });
+  });
+
+
   //render admin page filtered based on poll id
   router.get("/:id", (req, res) => {
+
+    console.log("INSIDE RES", req.params);
 
     //get information about the poll
     knex("polls")
       .select("*")
       .from("polls")
-      .where('polls.id', '=', req.params.id)
+      .where('polls.id', '=', req.params.id) //params is only passing an ID
       .then((row) => {
 
         //get submissions value
-        room8.getResults('your_poll_id', (results) => {
+        room8.getResults(req.params.id , (results) => {
           const templateVars = {
             question: row[0].question,
             description: row[0].description,
             options: row[0].options,
-            data: results.score
+            data: results.scores
           };
-
           res.render("results", templateVars);
         });
-        //res.send("VALID POLL ID");
-      }).catch(() => {
+
+      }).catch((err) => {
+        console.log("RESPONSE: ", err);
         let templateVars = {
           err: "Invalid results link. Please confirm link."
         };
-        res.send(templateVars.err)
-        //res.render("index", templateVars);
-      })
-
+        res.render("index", templateVars);
+      });
   });
 
   return router;
