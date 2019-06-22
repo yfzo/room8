@@ -1,7 +1,7 @@
 "use strict";
 
 const express = require('express');
-const router  = express.Router();
+const router = express.Router();
 const uuidv4 = require("uuid/v4");
 
 
@@ -14,13 +14,9 @@ module.exports = (knex) => {
   //new form submit
   router.post("/", (req, res) => {
 
-    const bodyContent = JSON.stringify(req.body)!== '{}'
-    console.log("REQ BODY: ",req.body)
+    const bodyContent = JSON.stringify(req.body) !== '{}'
 
     if (bodyContent) {
-
-      console.log("body has content ", req.body);
-
 
       let templateVars = {
         id: uuidv4(),
@@ -32,30 +28,39 @@ module.exports = (knex) => {
       };
 
       let valid = templateVars.question && (templateVars.description !== undefined) && (templateVars.options.length > 1);
-      console.log("valid: ", valid);
 
       if (valid) {
-
         knex("polls")
-        .insert({'id': templateVars.id, 'question': templateVars.question, 'description': templateVars.description, 'options': templateVars.options, 'email': templateVars.email, "is_active": true })
-        .then((result) => {
-          res.send("OKAY");
-          //res.render("results", templateVars);
-        })
-        .catch((err) => {console.log(err); throw err})
-        .finally(() => {
-          knex.destroy()
-        });
-
-        //add submissions based on number of pollers allowed
-        for (let i = 0; i < req.params.numOfPeople; i++ ) {
-          knex("submissions")
-          .insert({id: uuidv4(), "poll_id": templateVars.id , "answers": null})
-          .then((result) => {
-            res.send("OKAY", result);
-            //res.render("results", templateVars);
+          .insert({
+            'id': templateVars.id,
+            'question': templateVars.question,
+            'description': templateVars.description,
+            'options': templateVars.options,
+            'email': templateVars.email,
+            "is_active": true
           })
+          .then((result) => {
+            res.send("OKAY");
+          })
+          .catch((err) => {
+            console.log(err);
+            throw err
+          });
+
+        console.log('some shit: ', req.body.numOfPeople)
+        //add submissions based on number of pollers allowed
+        for (let i = 0; i < parseInt(req.body.numOfPeople); i++) {
+          knex("submissions")
+            .insert({
+              id: uuidv4(),
+              "poll_id": templateVars.id,
+              "answers": null
+            })
+            .then(() => {
+              console.log('Inserted things ( ಠ ͜ʖಠ)');
+            })
         }
+        //res.render("results", templateVars);
 
       } else {
         templateVars.err = "Missing information, please validate."
