@@ -8,13 +8,13 @@ footer.flex {
 /* Trick for keeping footer at bottom of page */
 html, body{ height:100%; margin:0; }
 
-body{ 
-  display:flex; 
-  flex-direction:column; 
+body{
+  display:flex;
+  flex-direction:column;
 }
 
 footer{
-  margin-top:auto; 
+  margin-top:auto;
 }
 
 /* footer styling */
@@ -26,6 +26,7 @@ footer{
     flex-direction: row;
     padding: 16px;
     width: 100%;
+    position: absolute;
 }
 
 .room8-love {

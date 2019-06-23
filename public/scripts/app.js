@@ -1,5 +1,17 @@
 $(document).ready(function() {
 
+  // testimonial
+   if ($(".ts-testimonial-slide").length > 0) {
+
+        $(".ts-testimonial-slide").owlCarousel({
+            autoPlay: 4000,
+            slideSpeed: 1000,
+            navigation: false,
+            pagination: true,
+            singleItem: true
+        });
+    };
+
 // =========================================================
 // !!!!!!!!!!!!! SET UP FOR VOTER_SUBMISSIONS FORM !!!!!!!!!!!!!!!
 // =========================================================
@@ -26,11 +38,28 @@ $(document).ready(function() {
   // =======================================
 
   $(".next").click(function(){
-    if(animating) return false;
-    animating = true;
 
     current_fs = $(this).parent();
     next_fs = $(this).parent().next();
+
+    let form = $('form#msform')[0];
+
+    if (next_fs[0].id === 'confirmation') {
+      if ($('input#email').val() === '') $('input#email').val('youremail@email.com');
+      $( "p.category.options" ).html('Options:');
+    }
+
+    form.reportValidity();
+    if (form.checkValidity() === false) return false;
+
+
+    if (next_fs[0].id === 'options') {
+      $('input.optionsInput').val('');
+    }
+
+    if(animating) return false;
+    animating = true;
+
 
   // ============================================================================
   //  activate next step on NEW_POLLS_FORM progressbar using the index of next_fs
@@ -85,6 +114,12 @@ $(".previous").click(function(){
   //de-activate current step on progressbar
   $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
 
+  if (previous_fs[0].id === 'options') {
+    $('input.optionsInput').val('');
+    if ($('input#email').val() === '') $('input#email').val('youremail@email.com');
+    $('input.num').val(2);
+  }
+
   //show the previous fieldset
   previous_fs.show();
   //hide the current fieldset with style
@@ -110,27 +145,48 @@ $(".previous").click(function(){
     },
     //this comes from the custom easing plugin
     easing: 'easeInOutBack'
-  });
+  }).promise().done(function () {
+        // give email field a value when animating so form doesn't error out
+        if ($('input#email').val() === '') $('input#email').val('youremail@email.com');
+        $('input.optionsInput').val(' ');
+        $('input.num').val(2);
+    });
 });
 
 
-// ==============================
-// ON SUBMIT OF NEW_POLLS_FORM
-// ==============================
+// ====================================================
+// ON SUBMIT OF NEW_POLLS_FORM: TO-DO... ROUTE REDIRECT
+// ====================================================
 
 
 $(".submit").click(function(e){
   e.preventDefault();
 
-  $.ajax({
-      url: $('form#msform').attr('action'),
-      type: 'POST',
-      data : $('#msform').serialize(),
-      success: function(response){
-        //window.location.href ="/polls/"+response.new_id;
-        console.log(response.new_id);
-      }
+  let form = $('form#msform')[0];
+
+  if ($('input.num').val() <= 1) {
+    $('input.num')[0].setCustomValidity('More than one person is needed to make a decision!');
+  } else {
+    $('input.num')[0].setCustomValidity('');
+  }
+
+  if (form.checkValidity() === false) {
+    form.reportValidity();
+    return;
+  } else if ($('input[name="options"]').toArray().filter((entry) => $(entry).val().replace(/\s/g, '').length).length < 2) {
+    alert('Please input at least two options');
+    return;
+  } else {
+    $.ajax({
+        url: $('form#msform').attr('action'),
+        type: 'POST',
+        data : $('#msform').serialize(),
+        success: function(response){
+          //window.location.href ="/polls/"+response.new_id;
+          console.log(response.new_id);
+        }
     });
+  }
 })
 
 
@@ -148,7 +204,7 @@ $("section.options").on('click', 'a.close', function(event) {
 // ================================
 
 $('a.plusButton').click(function(e){
-  $( "section.options" ).append('<span class="optionInput"><input type="text" name="options" placeholder="An option" /> <span class="close"><a href="#" class="close"></a></span></span>');
+  $( "section.options" ).append('<span class="optionInput"><input type="text" class="optionsInput" name="options" value=" " placeholder="An option" required/> <span class="close"><a href="#" class="close"></a></span></span>');
 })
 
 // ==================================================================
@@ -159,11 +215,18 @@ $('input.final').click(function(){
   $('p.question').text($('input[name="question"]').val());
   $('p.description').text($('textarea[name="description"]').val());
   $('ul.arrow').html('');
+  // clear default email value
+  if ($('input#email').val() === 'youremail@email.com') $('input#email').val('');
   let i = 1;
-  for (elem of $('input[name="options"]').toArray()) {
-    let entry = elem.value
-    $('ul.arrow').append(`<li style="list-style: none">- ${entry}</li>`)
-    i++
+
+  if ($('input[name="options"]').toArray().filter((entry) => $(entry).val().replace(/\s/g, '').length).length < 2) {
+    $( "p.category.options" ).append('<p style="color: #d60a0a; ">Please input at least two options.</p>');
+  } else {
+    for (elem of $('input[name="options"]').toArray()) {
+      let entry = elem.value
+      $('ul.arrow').append(`<li style="list-style: none">- ${entry}</li>`)
+      i++
+    }
   }
 });
 
@@ -171,16 +234,31 @@ $('input.final').click(function(){
 // !!!!!!!!!!!!! SUBMISSIONS_FORM LOGIC !!!!!!!!!!!!!
 // ==================================================
 
-// ============================================================================================
-//         SEND SUBMISSIONS_FORM: CURRENTLY NOT HITTING 'PUT' ROUTE, LOOKING FOR 'POST' ROUTE
-// =============================================================================================
+// ===================================================================================================
+//         SEND SUBMISSIONS_FORM: TO-DO... CURRENTLY NOT HITTING 'PUT' ROUTE, LOOKING FOR 'POST' ROUTE
+// ===================================================================================================
 
+  let dontCheck = false;
   $("#submit-answers").click(function(e){
+
     e.preventDefault();
+
+    let confirmed = true;
+
+    function arraysEqual(a, b) {
+      if (a === b) return true;
+      if (a == null || b == null) return false;
+      if (a.length != b.length) return false;
+
+      for (var i = 0; i < a.length; ++i) {
+        if (a[i] !== b[i]) return false;
+      }
+      return true;
+    }
+
     // To store options in order of rank
     let ranking = [];
 
-    console.log('OGOptions: ', OGOptions)
     // Weights
     let answers = [];
     $( `[data-groups] [data-group='answers'] [data-item]` ).each(function( index ) {
@@ -190,16 +268,30 @@ $('input.final').click(function(){
       let i = ranking.indexOf(opt);
       answers.push(OGOptions.length - i);
     }
+
+
+    if (arraysEqual(ranking, OGOptions) && !dontCheck) confirmed = false;
     let jsonRank = JSON.stringify(answers)
-    $.ajax({
-      url: $('form#new-submission').attr('action'),
-      type: 'POST',
-      headers: {"X-HTTP-Method-Override": "PUT"},
-      data : {answers: jsonRank},
-      success: function(){
-        console.log('form submitted.');
+
+    if (confirmed) {
+      $.ajax({
+        url: $('form#new-submission').attr('action'),
+        type: 'POST',
+        headers: {"X-HTTP-Method-Override": "PUT"},
+        data : {answers: jsonRank},
+        success: function(){
+          console.log('form submitted.');
+        }
+      });
+    } else {
+      if (confirm('Are you sure you want to submit this form with the default ranking?')) {
+        confirmed = true;
+        dontCheck = true;
+        alert('Okay then!');
+      } else {
+        alert('Change the rank order first!');
       }
-    });
+    }
   });
 
 });
