@@ -387,3 +387,7 @@ section.options {
 a:hover {
   text-decoration: none;
 }
+
+.poll-container .options div {
+  width: 100%;
+}
