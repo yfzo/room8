@@ -25,68 +25,68 @@
 
   <body>
     <% include ../partials/_header %>
+    <main class="results-pg">
 
-    <h2>Poll Information</h2>
+      <div id="poll-results-header">
+        <h1>Poll Results</h1>
 
-    <div id="response-promts">
-      <li>
-        <ul>Responses: 3</ul>
-        <ul>Awaiting: 1</ul>
-      </li>
-    </div>
+        <div id="response-prompts">
+          <ul>
+            <li>Responses: 3</li>
+            <li>Awaiting: 1</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div id="results-body">
+        <h2><%= question %></h2>
+        <article id="poll-results">
 
-    <article id="poll-results">
+            <div id="ranking">
+              <h4>Survey Says:</h4>
+                <%= options[0]%>
+            </div>
 
+          <div id="poll-visualization">
+              <canvas id="resultsChart"></canvas>
+          </div>
 
-      <h2><%= question %></h2>
-
-      <div id="ranking">
-        <li>
-          <% options.forEach( (element) => { %>
-          <ol><%= element %></ol>
-          <% }) %>
-        </li>
+        </article>
       </div>
 
-      <div id="poll-visualization">
-          <canvas id="resultsChart"></canvas>
-      </div>
-    </article>
+      <article id="poll-submissions-links">
+        <title>Links</title>
+        <p>Links are listed below, awaiting responses are denoted with a cross.</p>
 
-    <article id="poll-submissions-links">
-      <title>Links</title>
-      <p>Links are listed below, awaiting responses are denoted as red.</p>
-
-      <table>
-          <tr>
-            <th>Status</th>
-            <th>Link</th>
-            <th></th>
-            <th></th>
-          </tr>
-          <% for (let i = 0; i < links.length; i++) { %>
-          <tr>
-            <% if (answersProvided) { %>
-            <td>INACTIVE</td>
-            <% } else { %>
-              <td>ACTIVE</td>
+        <table id="submission-links">
+            <tr>
+              <th>Status</th>
+              <th id="link-column-name">Link</th>
+            </tr>
+            <% for (let i = 0; i < links.length; i++) { %>
+            <tr>
+              <% if (answersProvided) { %>
+              <td class="status"><svg class="cross-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg></td>
+              <% } else { %>
+                <td class="status"><svg class="check-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></td>
+              <% } %>
+              <td class="subLink"><%= links[i] %></td>
+              <% if (!answersProvided) { %>
+              <td><button onclick="copyURL('#subLink')">Copy URL</button></td>
+              <% } %>
+            </tr>
             <% } %>
-            <td id="subLink"><%= links[i] %></td>
-            <% if (!answersProvided) { %>
-            <td><button onclick="copyURL('#subLink')">Copy URL</button></td>
-            <% } %>
-          </tr>
-          <% } %>
-        </table>
+          </table>
+        </article>
 
-        <p>Generate new URL for additional voter</p>
-        <button onclick="window.location.reload();">Add NEW URL</button>
-        <br>
+        <div id="poll-buttons">
+          <button onclick="window.location.reload();">Add NEW URL</button>
+          <br>
 
-        <button>** END POLL **</button>
+          <button>** END POLL **</button>
+        </div>
 
-    </article>
-
+      </main>
     <% include ../partials/_footer %>
 
     <script>

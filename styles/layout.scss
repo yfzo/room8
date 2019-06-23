@@ -228,6 +228,10 @@ div.flex.heading2 {
   margin-bottom: 20px;
 }
 
+// #options-fs.poll-fs {
+//   position: relative;
+// }
+
 /*progressbar*/
 #progressbar {
   margin-bottom: 30px;
@@ -370,6 +374,10 @@ a.plusButton:hover {
 
 section.options {
   width: 100% !important;
+}
+
+a:hover {
+  text-decoration: none;
 }
 
 p.category.options {

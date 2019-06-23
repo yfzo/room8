@@ -375,6 +375,10 @@ section.options {
   width: 100% !important;
 }
 
+a:hover {
+  text-decoration: none;
+}
+
 p.category.options {
   width: 100% !important;
 }
