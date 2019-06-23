@@ -79,8 +79,16 @@ module.exports = (knex) => {
         .where("poll_id", "=", poll_id)
         .then((res) => {
           if (res.length > 0) {
-            const theThing = this.calculate(res);
-            callback(theThing);
+            let calculated;
+            try{
+              calculated = this.calculate(res);
+            }
+            catch (err){
+              // Shorter error logging for expected error (i.e. when the poll is created there are no answers yet)
+              let reason = (res[0].answers === null ? "There are no answers yet!" : "An error occurred:\n" + err);
+              console.warn('Failed to calculate results because ' + reason);
+            }
+            callback(calculated);
           } else {
             callback(`No results found for ${poll_id}`);
           }
