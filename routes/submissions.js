@@ -6,37 +6,7 @@ const uuidv4 = require('uuid/v4');
 
 module.exports = (knex) => {
 
-  // router.get("/test", (req, res) => {
-  //   res.render("submission");
-  // });
-
-  // router.post("/test", (req, res) => {
-  //   console.log(req.body);
-  //   let templateVars = {
-  //     answers: req.body.answers
-  //   };
-  //   // knex("submissions")
-  //   // .insert({'answers': templateVars.answers, "id": req.params.id})
-  //   // .then(() => res.send("ANSWERS SENT"))
-  //   // .catch((err) => {console.log(err); throw err})
-  //   // .finally(() => knex.destroy());
-  // });
-
-
-  // router.post("/:id", (req, res) => {
-  //   console.log('le post body: ', req.body);
-  //   let templateVars = {
-  //     answers: req.body.answers
-  //   };
-  //   // knex("submissions")
-  //   // .insert({'answers': templateVars.answers, "id": req.params.id})
-  //   // .then(() => res.send("ANSWERS SENT"))
-  //   // .catch((err) => {console.log(err); throw err})
-  //   // .finally(() => knex.destroy());
-  // });
-
-
-
+  // PROBLEMATIC NEED TO REVIEW FORM ROUTE
   //submission submit to update to show answers have been submitted
 //   router.put("/:id", (req, res) => {
 //     let templateVars = {
@@ -49,13 +19,12 @@ module.exports = (knex) => {
     // .catch((err) => {console.log(err); throw err})
     // .finally(() => knex.destroy());
 
+//      STRETCH FOR ADDING A NEW URL
 //   router.post("/:id", (req, res) => {
-
 //     knex("submissions")
 //     .insert({'answers': null, "id": uuidv4})
 //     .then(() => res.send("ANSWERS SENT"))
 //     .catch((err) => {console.log(err); throw err})
-
 //   });
 
 

@@ -96,7 +96,6 @@ $(".previous").click(function(){
 });
 
 // form control
-
 $(".submit").click(function(e){
   e.preventDefault();
 
@@ -104,9 +103,9 @@ $(".submit").click(function(e){
       url: $('form#msform').attr('action'),
       type: 'POST',
       data : $('#msform').serialize(),
-      success: function(){
-        console.log('form submitted.');
-        console.log(this.data);
+      success: function(response){
+        //window.location.href ="/polls/"+response.new_id;
+        console.log(response.new_id);
       }
     });
 })
@@ -165,7 +164,7 @@ $('input.final').click(function(){
     e.preventDefault();
     // To store options in order of rank
     let ranking = [];
-    
+
     console.log('OGOptions: ', OGOptions)
     // Weights
     let answers = [];
