@@ -5,10 +5,7 @@ const router  = express.Router();
 const uuidv4  = require("uuid/v4");
 const PORT    = process.env.PORT || 8080;
 
-
-
 module.exports = (knex) => {
-
 
   const room8 = require("../room8lib")(knex);
 
@@ -77,7 +74,7 @@ module.exports = (knex) => {
               })
             // send email
 
-            res.send("OKAY");
+            res.json({ "new_id": templateVars.id})
           })
           .catch((err) => {
             console.log(err);
@@ -88,7 +85,6 @@ module.exports = (knex) => {
 
       } else {
         templateVars.err = "Missing information, please validate."
-        res.send("FAILED: MISSING INFORMATION");
         //res.render("new_poll", templateVars);
       }
     } else {
@@ -107,7 +103,7 @@ module.exports = (knex) => {
 
   //route to get SCORES
   router.get("/:id/score", (req, res) => {
-    room8.getResults(req.params.id , (results) => {
+    room8.getResults(req.params.id , () => {
       knex("polls")
       .select("*")
       .from("polls")
@@ -159,9 +155,6 @@ module.exports = (knex) => {
             if (row[i].answers !== null){
               answersProvided.push(true);
             } else {answersProvided.push(false);}
-
-            console.log("ROWS ANSWER IS ", row[i].answers)
-            console.log(links[i], " has an ", answersProvided[i], "link!!!!")
           }
           templateVars["links"] = links;
           templateVars["answersProvided"] = answersProvided;
@@ -169,15 +162,12 @@ module.exports = (knex) => {
           res.render("results", templateVars);
         });
 
-      }).catch((err) => {
-        console.log("RESPONSE: ", err);
+      }).catch(() => {
         let templateVars = {
           err: "Invalid results link. Please confirm link."
         };
         res.render("index", templateVars);
       });
   });
-
-
   return router;
 }

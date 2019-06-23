@@ -15,6 +15,8 @@ Decision making app for roommates, friends, or whatever. Anonymous, easy and fas
 1. Install dependencies: `npm i`
 2. Fix to binaries for sass: `npm rebuild node-sass`
 3. Run migrations: `npm run knex migrate:latest`
+4. add to env. `MAILGUN_KEY=b33e274ebae2919498c79530ed8b6b70-29b7488f-d9073c94`
+              `MAILGUN_DOMAIN=sandbox4e7f5cff7b4b4ae9be0f25564ca2b882.mailgun.org`
   - Check the migrations folder to see what gets created in the DB
 4. Run the seed: `npm run knex seed:run`
   - Check the seeds file to see what gets seeded in the DB
