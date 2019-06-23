@@ -395,7 +395,3 @@ a:hover {
 p.category.options {
   width: 100% !important;
 }
-
-.uk-drag, .uk-drag * {
-  text-align: center;
-}

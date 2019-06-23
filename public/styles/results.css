@@ -1,0 +1,65 @@
+.results-pg {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.results-pg article {
+  margin: 2em;
+}
+
+.results-pg article#poll-results {
+  display: flex;
+}
+
+.results-pg h1 {
+  color: #5BBD9E;
+}
+
+#response-prompts {
+  color: #3A1B3D;
+}
+
+#poll-results {
+  width: 100%;
+  flex-direction: row;
+  justify-content: center;
+}
+
+#poll-results h2, #ranking {
+  text-align: center;
+}
+
+#poll-results-header {
+  position: relative;
+  top: 1em;
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+#poll-submissions-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#ranking {
+  margin: auto;
+  flex-basis: 40%;
+}
+
+#poll-visualization {
+  flex-basis: 60%;
+}
+
+.subLink {
+  padding: 0.5em 2em;
+}
+
+th#link-column-name {
+  padding: 0.5em 2em;
+}
+
+#submission-links {
+  margin: 1em 0 2em 0;
+}
