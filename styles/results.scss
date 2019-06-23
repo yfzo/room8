@@ -5,7 +5,6 @@
 }
 
 .results-pg article {
-    margin: 2em;
 
     &#poll-results {
         display: flex;
@@ -26,7 +25,7 @@
     justify-content: center;
 }
 
-#poll-results h2, #ranking{
+#results-body h2, #ranking{
     text-align: center;
 }
 
@@ -41,6 +40,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 2em;
 }
 
 #ranking {
@@ -62,4 +62,27 @@ th#link-column-name {
 
 #submission-links {
     margin: 1em 0 2em 0;
+}
+
+.cross-svg {
+    fill: #541E5E;
+}
+
+.check-svg {
+    fill: #5BBD9E;
+}
+
+.status {
+    text-align: center;
+}
+
+#poll-results-header, #results-body, #poll-submissions-links {
+    border: 1px solid;
+    border-color: rgb(171, 156, 173);
+    // border-radius: 1em;
+    width: 100%;
+    -webkit-box-shadow: 0px 5px 15px -9px rgb(168, 136, 172);
+	   -moz-box-shadow: 0px 5px 15px -9px rgb(168, 136, 172);
+            box-shadow: 0px 5px 15px -9px rgb(168, 136, 172);
+    padding: 1em;
 }

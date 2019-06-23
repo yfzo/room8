@@ -4,10 +4,6 @@
   align-items: center;
 }
 
-.results-pg article {
-  margin: 2em;
-}
-
 .results-pg article#poll-results {
   display: flex;
 }
@@ -26,7 +22,7 @@
   justify-content: center;
 }
 
-#poll-results h2, #ranking {
+#results-body h2, #ranking {
   text-align: center;
 }
 
@@ -41,6 +37,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 2em;
 }
 
 #ranking {
@@ -62,4 +59,26 @@ th#link-column-name {
 
 #submission-links {
   margin: 1em 0 2em 0;
+}
+
+.cross-svg {
+  fill: #541E5E;
+}
+
+.check-svg {
+  fill: #5BBD9E;
+}
+
+.status {
+  text-align: center;
+}
+
+#poll-results-header, #results-body, #poll-submissions-links {
+  border: 1px solid;
+  border-color: #ab9cad;
+  width: 100%;
+  -webkit-box-shadow: 0px 5px 15px -9px #a888ac;
+  -moz-box-shadow: 0px 5px 15px -9px #a888ac;
+  box-shadow: 0px 5px 15px -9px #a888ac;
+  padding: 1em;
 }
