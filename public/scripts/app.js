@@ -171,7 +171,8 @@ $(".submit").click(function(e){
         data : $('#msform').serialize(),
         success: function(response){
           //window.location.href ="/polls/"+response.new_id;
-          console.log(response.new_id);
+          console.log(response.id);
+          window.location.href = "/polls/" + response.id;
         }
     });
   }

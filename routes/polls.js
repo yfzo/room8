@@ -12,9 +12,11 @@ module.exports = (knex) => {
   //new form submit
   router.post("/", (req, res) => {
 
+    const templateVars = {};
+
     if (JSON.stringify(req.body) !== '{}') {
 
-      let templateVars = {
+      let newPoll = {
         id: uuidv4(),
         question: req.body.question,
         description: req.body.description,
@@ -25,23 +27,23 @@ module.exports = (knex) => {
         err: ""
       };
 
-      let valid = templateVars.question && (templateVars.description !== undefined) && (templateVars.options.length > 1);
+      let valid = newPoll.question && (newPoll.description !== undefined) && (newPoll.options.length > 1);
 
       if (valid) {
         knex("polls")
           .insert({
-            'id': templateVars.id,
-            'question': templateVars.question,
-            'description': templateVars.description,
-            'options': templateVars.options,
-            'email': templateVars.email,
+            'id': newPoll.id,
+            'question': newPoll.question,
+            'description': newPoll.description,
+            'options': newPoll.options,
+            'email': newPoll.email,
             "is_active": true
           })
           .then(() => {
             // Create Submissions, inset into table
             // get hostname, add port if localhost
             const hostname = (req.hostname === 'localhost' ? `${req.hostname}:${PORT}` : req.hostname);
-            const emailTo = templateVars.email;
+            const emailTo = newPoll.email;
             const mailerData = {
               templateName: "new_poll",
               emailVars: {
@@ -55,38 +57,30 @@ module.exports = (knex) => {
             let submissionPromises = []
             for (let i = 0; i < parseInt(req.body.numOfPeople); i++) {
               let subID = uuidv4();
-
+              // Push a promise to insert a new submission for each sub requested by the user
               submissionPromises.push(knex("submissions")
-                .insert({
-                  id: subID,
-                  "poll_id": templateVars.id,
-                  "answers": null
-                })
+                .insert({ id: subID, "poll_id": newPoll.id, "answers": null })
                 .then(() => {
                   // Confirmation of successful insertion
                   mailerData.emailVars.subLinks.push(subID);
                   console.log('Inserted things ( ಠ ͜ʖಠ)');
-
                   //push sub id
-                  templateVars.links.push(subID);
-                  templateVars.answersProvided.push(false);
-
+                  newPoll.links.push(subID);
+                  newPoll.answersProvided.push(false);
                 })
               )
             }
             // Call all promises, send mail in .then() so all sub links are included
             Promise.all(submissionPromises)
-              .then(() => {
-                room8.sendMail(emailTo, mailerData);
-              })
-            // send email
-
-            res.json({ "new_id": templateVars.id})
+              .then(() => { room8.sendMail(emailTo, mailerData); })
+            templateVars.id = newPoll.id;
+            res.json(templateVars);
+            //res.redirect('/');
           })
           .catch((err) => {
-            console.log(err);
-            throw err
-          });
+            templateVars.err = err;
+            console.warn(templateVars.err);
+          })
 
         //res.render("results", templateVars);
 
@@ -121,7 +115,7 @@ module.exports = (knex) => {
         room8.getResults(req.params.id , (results) => {
           const templateVars = {
             options: row[0].options,
-            scores: results.scores
+            scores: (results ? results.scores : new Array(row[0].options.length).fill(0))
           };
           res.send(templateVars);
         });
@@ -146,28 +140,23 @@ module.exports = (knex) => {
       .where('polls.id', '=',req.params.id) //params is only passing an ID
       .then((row) => {
 
-        //get submissions value
-        room8.getResults(req.params.id, (results) => {
+        templateVars["question"] = row[0].question;
+        templateVars["description"] = row[0].description;
+        templateVars["options"] = row[0].options;
 
-          templateVars["question"] = row[0].question;
-          templateVars["description"] = row[0].description;
-          templateVars["options"] = row[0].options;
-          templateVars["data"] = results.scores;
+        let links = [];
+        let answersProvided = [];
+        for (let i = 0; i < row.length; i++){
+          links.push(row[i].sub_id);
 
-          let links = [];
-          let answersProvided = [];
-          for (let i = 0; i < row.length; i++){
-            links.push(row[i].sub_id);
+          if (row[i].answers !== null){
+            answersProvided.push(true);
+          } else {answersProvided.push(false);}
+        }
+        templateVars["links"] = links;
+        templateVars["answersProvided"] = answersProvided;
 
-            if (row[i].answers !== null){
-              answersProvided.push(true);
-            } else {answersProvided.push(false);}
-          }
-          templateVars["links"] = links;
-          templateVars["answersProvided"] = answersProvided;
-
-          res.render("results", templateVars);
-        });
+        res.render("results", templateVars);
 
       }).catch(() => {
         let templateVars = {
