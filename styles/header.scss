@@ -41,7 +41,7 @@ button {
     position: relative;
     text-decoration: none;
     text-transform: uppercase;
-    
+
     &:hover,
     &:focus {
       outline: none; /*Prevent the default browser focus style. We don't need it since we're making our own.*/
@@ -50,12 +50,12 @@ button {
       &.button-text {
         color: #541E5E;
       }
-      
+
       &:after {
         opacity: 1;
       }
     }
-    
+
     .button-text {
       position: relative;
       transition: color 0.2s ease;
@@ -73,4 +73,12 @@ header {
 	-webkit-box-shadow: 0 8px 6px -6px rgb(168, 136, 172);
 	   -moz-box-shadow: 0 8px 6px -6px rgb(168, 136, 172);
 	        box-shadow: 0 8px 6px -6px rgb(168, 136, 172);
+}
+
+h1.logo-text:hover {
+  text-decoration: none;
+}
+
+a#title:hover {
+  text-decoration: none;
 }

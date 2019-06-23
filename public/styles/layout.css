@@ -375,21 +375,8 @@ section.options {
   width: 100% !important;
 }
 
-#app-description {
-  text-align: center;
-  flex-direction: column;
-}
-
-.index h1, h2 {
-  margin-top: 1rem;
-}
-
 a:hover {
   text-decoration: none;
-}
-
-.poll-container .options div {
-  width: 100%;
 }
 
 p.category.options {

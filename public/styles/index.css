@@ -159,3 +159,11 @@ div.flex.anonimage {
 .ts-testimonial-slide .ts-testimonial-item .client-position a:hover {
   color: #5ed9e7;
 }
+
+.testimonial.flex.last {
+  margin-top: 10em;
+}
+
+div.testimonial.flex {
+  margin-top: 5em;
+}

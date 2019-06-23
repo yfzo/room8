@@ -1,17 +1,5 @@
 $(document).ready(function() {
 
-  // testimonial
-   if ($(".ts-testimonial-slide").length > 0) {
-
-        $(".ts-testimonial-slide").owlCarousel({
-            autoPlay: 4000,
-            slideSpeed: 1000,
-            navigation: false,
-            pagination: true,
-            singleItem: true
-        });
-    };
-
 // =========================================================
 // !!!!!!!!!!!!! SET UP FOR VOTER_SUBMISSIONS FORM !!!!!!!!!!!!!!!
 // =========================================================
@@ -176,6 +164,9 @@ $(".submit").click(function(e){
   } else if ($('input[name="options"]').toArray().filter((entry) => $(entry).val().replace(/\s/g, '').length).length < 2) {
     alert('Please input at least two options');
     return;
+  } else if (new Set($('input[name="options"]').toArray().map((entry) => $(entry).val())).size !== $('input[name="options"]').toArray().map((entry) => $(entry).val()).length) {
+      alert('Options have to be unique');
+      return;
   } else {
     $.ajax({
         url: $('form#msform').attr('action'),
@@ -188,6 +179,13 @@ $(".submit").click(function(e){
     });
   }
 })
+
+if ($('input[name="options"]').toArray().filter((entry) => $(entry).val().replace(/\s/g, '').length).length < 2) {
+    $( "p.category.options" ).append('<p style="color: #d60a0a; ">Please input at least two options.</p>');
+  } else if (new Set($('input[name="options"]').toArray().map((entry) => $(entry).val())).size !== $('input[name="options"]').toArray().map((entry) => $(entry).val()).length) {
+      $( "p.category.options" ).append('<p style="color: #d60a0a; ">Options have to be unique.</p>');
+      return;
+  }
 
 
 // ===================================
@@ -211,6 +209,7 @@ $('a.plusButton').click(function(e){
 //  CCONFIRM YOUR ENTERED INFORMATION BEFORE NEW_POLL_FORM SUBMISSION
 // ==================================================================
 
+
 $('input.final').click(function(){
   $('p.question').text($('input[name="question"]').val());
   $('p.description').text($('textarea[name="description"]').val());
@@ -218,9 +217,12 @@ $('input.final').click(function(){
   // clear default email value
   if ($('input#email').val() === 'youremail@email.com') $('input#email').val('');
   let i = 1;
-
+  // debugger
   if ($('input[name="options"]').toArray().filter((entry) => $(entry).val().replace(/\s/g, '').length).length < 2) {
     $( "p.category.options" ).append('<p style="color: #d60a0a; ">Please input at least two options.</p>');
+  } else if (new Set($('input[name="options"]').toArray().map((entry) => $(entry).val())).size !== $('input[name="options"]').toArray().map((entry) => $(entry).val()).length) {
+      $( "p.category.options" ).append('<p style="color: #d60a0a; ">Options have to be unique.</p>');
+      return;
   } else {
     for (elem of $('input[name="options"]').toArray()) {
       let entry = elem.value
@@ -271,16 +273,17 @@ $('input.final').click(function(){
 
 
     if (arraysEqual(ranking, OGOptions) && !dontCheck) confirmed = false;
-    let jsonRank = JSON.stringify(answers)
+    // let jsonRank = answers
 
     if (confirmed) {
       $.ajax({
         url: $('form#new-submission').attr('action'),
         type: 'POST',
         headers: {"X-HTTP-Method-Override": "PUT"},
-        data : {answers: jsonRank},
+        data : {answers: answers},
         success: function(){
           console.log('form submitted.');
+          location.reload();
         }
       });
     } else {
