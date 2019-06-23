@@ -36,22 +36,30 @@ module.exports = (knex) => {
   // });
 
 
+
   //submission submit to update to show answers have been submitted
-  router.put("/:id", (req, res) => {
-    let templateVars = {
-      answers: req.body.answers.map( ans => parseInt(ans))
-    };
-    console.log(`les answers: ${templateVars.answers}\n---\nid:${req.params.id}`);
+//   router.put("/:id", (req, res) => {
+//     let templateVars = {
+//       answers: req.body.answers.map( ans => parseInt(ans))
+//     };
+//     console.log(`les answers: ${templateVars.answers}\n---\nid:${req.params.id}`);
     // knex("submissions")
     // .insert({'answers': templateVars.answers, "id": req.params.id})
     // .then(() => res.send("ANSWERS SENT"))
     // .catch((err) => {console.log(err); throw err})
     // .finally(() => knex.destroy());
-  });
+
+//   router.post("/:id", (req, res) => {
+
+//     knex("submissions")
+//     .insert({'answers': null, "id": uuidv4})
+//     .then(() => res.send("ANSWERS SENT"))
+//     .catch((err) => {console.log(err); throw err})
+
+//   });
 
 
   //get submission form where knex filter is based on submission ID
-
   router.get("/:id", (req, res) => {
 
     knex
