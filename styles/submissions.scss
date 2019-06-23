@@ -1,5 +1,5 @@
 .poll-container {
-  margin-top: 5em;
+  margin-top: 2em;
 }
 
 #poll-description h6 {
@@ -7,17 +7,23 @@
 }
 
 .uk-card-default {
-    background: #5BBD9E;
+    background: rgb(152, 122, 167);
     color: #fff;
     box-shadow: 6px 5px 10px -6px #000000;
     border-radius: 12px;
+    opacity: 0.8;
 }
 
 div.options {
   margin: 1em 0 4em 0;
+  width: 100%;
 }
 
 button#submit-answers:hover {
   color: #616C76;
 }
 
+//fixes text moving to the left when dragging options
+.uk-drag, .uk-drag * {
+  text-align: center;
+}
