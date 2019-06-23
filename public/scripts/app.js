@@ -16,6 +16,12 @@ var current_fs, next_fs, previous_fs; //fieldsets
 var left, opacity, scale; //fieldset properties which we will animate
 var animating; //flag to prevent quick multi-click glitches
 
+let OGOptions = [];
+var jqueryOps = $('.uk-card').toArray();
+for (var op in jqueryOps){
+  OGOptions.push(jqueryOps[op].innerText);
+}
+
 $(".next").click(function(){
   if(animating) return false;
   animating = true;
@@ -103,8 +109,22 @@ $(".submit").click(function(e){
         console.log(this.data);
       }
     });
-
 })
+
+// $("#submit-answers").click(function(e){
+//   e.preventDefault();
+//   console.log('fuck')
+
+//   $.ajax({
+//     url: $('#new-submission').attr('action'),
+//     type: 'PUT',
+//     data: $('#new-submission').serialize(),
+//     success: function(){
+//       console.log('Submission sent!');
+//       console.log(this.data);
+//     }
+//   })
+// })
 
 $("section.options").on('click', 'a.close', function(event) {
   event.preventDefault();
@@ -141,22 +161,26 @@ $('input.final').click(function(){
 //   });
 // });
 
-  $("div.submit button").click(function(e){
+  $("#submit-answers").click(function(e){
     e.preventDefault();
+    // To store options in order of rank
     let ranking = [];
-    let options = ["Cat", "Dog", "Snake", "Apple"];
+    
+    console.log('OGOptions: ', OGOptions)
+    // Weights
     let answers = [];
     $( `[data-groups] [data-group='answers'] [data-item]` ).each(function( index ) {
       ranking.push($(this).text());
     });
-    for (opt of options) {
+    for (opt of OGOptions) {
       let i = ranking.indexOf(opt);
-      answers.push(options.length - i);
+      answers.push(OGOptions.length - i);
     }
     let jsonRank = JSON.stringify(answers)
     $.ajax({
       url: $('form#new-submission').attr('action'),
       type: 'POST',
+      headers: {"X-HTTP-Method-Override": "PUT"},
       data : {answers: jsonRank},
       success: function(){
         console.log('form submitted.');
