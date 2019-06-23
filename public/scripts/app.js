@@ -1,34 +1,50 @@
-// $(() => {
-//   $.ajax({
-//     method: "GET",
-//     url: "/api/polls"
-//   }).done((polls) => {
-//     for(user of polls) {
-//       $("<div>").text(poll.name).appendTo($("body"));
-//     }
-//   });;
-// });
-
 $(document).ready(function() {
 
-//jQuery time
-var current_fs, next_fs, previous_fs; //fieldsets
-var left, opacity, scale; //fieldset properties which we will animate
-var animating; //flag to prevent quick multi-click glitches
+// =========================================================
+// !!!!!!!!!!!!! SET UP FOR SUBMISSIONS FORM !!!!!!!!!!!!!!!
+// =========================================================
+  let OGOptions = [];
+  var jqueryOps = $('.uk-card').toArray();
+  for (var op in jqueryOps){
+    OGOptions.push(jqueryOps[op].innerText);
+  }
 
-$(".next").click(function(){
-  if(animating) return false;
-  animating = true;
+// ==================================================
+// !!!!!!!!!!!!! NEW_POLLS_FORM LOGIC !!!!!!!!!!!!!
+// ==================================================
 
-  current_fs = $(this).parent();
-  next_fs = $(this).parent().next();
+// ===========================
+// ANIMATING NEW_POLLS_FORM
+// ===========================
+  var current_fs, next_fs, previous_fs; //fieldsets
+  var left, opacity, scale; //fieldset properties which we will animate
+  var animating; //flag to prevent quick multi-click glitches
 
-  //activate next step on progressbar using the index of next_fs
+  // ======================================
+  // MOVE TO NEXT STEP OF NEW_POLLS_FORM
+  // =======================================
+
+  $(".next").click(function(){
+    if(animating) return false;
+    animating = true;
+
+    current_fs = $(this).parent();
+    next_fs = $(this).parent().next();
+
+  // ============================================================================
+  //  activate next step on NEW_POLLS_FORM progressbar using the index of next_fs
+  // ============================================================================
   $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
 
-  //show the next fieldset
+  // ===================================== //
+  //  show the next NEW_POLLS_FORM fieldset
+  // ==================================== //
   next_fs.show();
-  //hide the current fieldset with style
+
+  // ========================================= //
+  //  hide the current NEW_POLLS_FORM fieldset
+  // ======================================== //
+
   current_fs.animate({opacity: 0}, {
     step: function(now, mx) {
       //as the opacity of current_fs reduces to 0 - stored in "now"
@@ -53,6 +69,10 @@ $(".next").click(function(){
     easing: 'easeInOutBack'
   });
 });
+
+// =======================================
+// MOVE TO PREVIOUS STEP OF NEW_POLLS_FORM
+// =======================================
 
 $(".previous").click(function(){
   if(animating) return false;
@@ -89,7 +109,9 @@ $(".previous").click(function(){
   });
 });
 
-// form control
+// ==============================
+// ON SUBMIT OF NEW_POLLS_FORM
+// ==============================
 
 $(".submit").click(function(e){
   e.preventDefault();
@@ -103,13 +125,28 @@ $(".submit").click(function(e){
         console.log(this.data);
       }
     });
-
 })
+
+// ===================================
+//  DELETE NEW_POLLS_FORM INPUT FIELD
+// ===================================
 
 $("section.options").on('click', 'a.close', function(event) {
   event.preventDefault();
   $(this).parents('span.optionInput').remove();
 });
+
+// ================================
+//  ADD NEW_POLLS_FORM INPUT FIELD
+// ================================
+
+$('a.plusButton').click(function(e){
+  $( "section.options" ).append('<span class="optionInput"><input type="text" name="options" placeholder="An option" /> <span class="close"><a href="#" class="close"></a></span></span>');
+})
+
+// ===============================================================
+//  CHECK YOUR ENTERED INFORMATION BEFORE NEW_POLL_FORM SUBMISSION
+// ===============================================================
 
 $('input.final').click(function(){
   $('p.question').text($('input[name="question"]').val());
@@ -117,60 +154,44 @@ $('input.final').click(function(){
   $('ul.arrow').html('');
   let i = 1;
   for (elem of $('input[name="options"]').toArray()) {
-    // $('ul.arrow li::before').css('display', 'none');
     let entry = elem.value.replace(' ', '');
     $('ul.arrow').append(`<li style="list-style: none">- ${entry}</li>`)
     i++
   }
-})
+});
 
-// $(`body`).on(`DOMSubtreeModified`, `[data-groups]`, function() {
-    // let json = {};
-// $( `[data-groups] [data-group]` ).each(function( index ) {
-//   json[$(this).data("group")] = []; // how many groups
-// });
-// json['answers'] = [];
-//  $( `[data-groups] [data-group='answers'] [data-item]` ).each(function( index ) {
-//     json['answers'].push($(this).text());
-//   });
-// console.log(json);
+// ==================================================
+// !!!!!!!!!!!!! SUBMISSIONS_FORM LOGIC !!!!!!!!!!!!!
+// ==================================================
 
-// Object.entries(json).forEach(([key, value]) => {
-//   $( `[data-groups] [data-group='${key}'] [data-item]` ).each(function( index ) {
-//     json[key].push($(this).text());
-//   });
-// });
-
-  $("div.submit button").click(function(e){
+// ============================================================================================
+//         SEND SUBMISSIONS_FORM: CURRENTLY NOT HITTING 'PUT' ROUTE, LOOKING FOR 'POST' ROUTE
+// =============================================================================================
+  $("#submit-answers").click(function(e){
     e.preventDefault();
+    // To store options in order of rank
     let ranking = [];
-    let options = ["Cat", "Dog", "Snake", "Apple"];
+
+    console.log('OGOptions: ', OGOptions)
+    // Weights
     let answers = [];
     $( `[data-groups] [data-group='answers'] [data-item]` ).each(function( index ) {
       ranking.push($(this).text());
     });
-    for (opt of options) {
+    for (opt of OGOptions) {
       let i = ranking.indexOf(opt);
-      answers.push(options.length - i);
+      answers.push(OGOptions.length - i);
     }
     let jsonRank = JSON.stringify(answers)
     $.ajax({
       url: $('form#new-submission').attr('action'),
       type: 'POST',
+      headers: {"X-HTTP-Method-Override": "PUT"},
       data : {answers: jsonRank},
       success: function(){
         console.log('form submitted.');
       }
     });
   });
-// });
-
-// array where item zero is first option in order and each index is an integer of a score
-
-$('a.plusButton').click(function(e){
-  $( "section.options" ).append('<span class="optionInput"><input type="text" name="options" placeholder="An option" /> <span class="close"><a href="#" class="close"></a></span></span>');
-})
-
-
 
 });
