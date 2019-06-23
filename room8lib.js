@@ -53,7 +53,12 @@ module.exports = (knex) => {
       return results;
     },
     calculate: function (response) {
-      let results = new Array(response[0].answers.length);
+      for (var i in response){
+        if (response[i].answers){
+          var answerLength = response[i].answers.length
+        }
+      }
+      let results = new Array(answerLength);
       const responded = {};
       // Seed results with 0s
       results.fill(0);
@@ -84,6 +89,7 @@ module.exports = (knex) => {
               calculated = this.calculate(res);
             }
             catch (err){
+              console.log(err);
               // Shorter error logging for expected error (i.e. when the poll is created there are no answers yet)
               let reason = (res[0].answers === null ? "There are no answers yet!" : "An error occurred:\n" + err);
               console.warn('Failed to calculate results because ' + reason);
