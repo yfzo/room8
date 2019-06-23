@@ -60,12 +60,13 @@
 
         </article>
       </div>
-
-      <article id="poll-submissions-links">
-        <title>Links</title>
-        <p>Links are listed below, awaiting responses are denoted with a cross.</p>
-
-        <table id="submission-links">
+      
+      <% if (is_active) { %>
+        <article id="poll-submissions-links">
+          <title>Links</title>
+          <p>Links are listed below, awaiting responses are denoted with a cross.</p>
+  
+          <table id="submission-links">
             <tr>
               <th>Status</th>
               <th id="link-column-name">Link</th>
@@ -85,13 +86,14 @@
             <% } %>
           </table>
         </article>
-
+        
         <div id="poll-buttons">
           <button onclick="window.location.reload();">Add NEW URL</button>
           <br>
-
+          
           <button>END POLL</button>
         </div>
+      <% } %>
 
       </main>
     <% include ../partials/_footer %>
