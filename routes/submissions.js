@@ -6,18 +6,26 @@ const uuidv4 = require('uuid/v4');
 
 module.exports = (knex) => {
 
-  // PROBLEMATIC NEED TO REVIEW FORM ROUTE
-  //submission submit to update to show answers have been submitted
-//   router.put("/:id", (req, res) => {
-//     let templateVars = {
-//       answers: req.body.answers.map( ans => parseInt(ans))
-//     };
-//     console.log(`les answers: ${templateVars.answers}\n---\nid:${req.params.id}`);
-    // knex("submissions")
-    // .insert({'answers': templateVars.answers, "id": req.params.id})
-    // .then(() => res.send("ANSWERS SENT"))
-    // .catch((err) => {console.log(err); throw err})
-    // .finally(() => knex.destroy());
+  //sumitting a new poll
+  router.post("/:id", (req, res) => {
+    try {
+      let templateVars = {
+        answers: req.body.answers.map( ans => parseInt(ans)) //request answer is type string
+      };
+
+      knex("submissions")
+      .where({"id": req.params.id})
+      .update({'answers': templateVars.answers})
+      .then((data) => {
+        res.send("Thank you for the submission");
+      })
+      .catch((err) => {console.log(err); throw err});
+
+    } catch (error) {
+      console.log(error, "error: missing data");
+    }
+
+  });
 
 //      STRETCH FOR ADDING A NEW URL
 //   router.post("/:id", (req, res) => {
@@ -30,32 +38,28 @@ module.exports = (knex) => {
 
   //get submission form where knex filter is based on submission ID
   router.get("/:id", (req, res) => {
-
-    knex
+      knex
       .select("*")
       .from("submissions")
       .join("polls", "poll_id", "=", "polls.id")
       .where('submissions.id', '=', req.params.id)
       .then((row) => {
-        console.log('row', row[0]);
-        if (row.length > 0) {
-          let templateVars = {
-            question: row[0].question,
-            description: row[0].description,
-            options: row[0].options,
-            submissionId: req.params.id
-          };
-          //res.send("LOAD POLL, CORRECT ID");
+        let templateVars = {
+          question: row[0].question,
+          description: row[0].description,
+          options: row[0].options,
+          submissionId: req.params.id
+        };
+
+        //confirmation that poll has not been already completed
+        if (row[0].answers === null) {
           res.render("submission", templateVars);
-        }else {
-          let templateVars = {
-            err: "Invalid poll. Please confirm poll link or contact poll admin."
-          };
-          res.send("LOAD INDEX, INVALID POLL ID");
-          //res.redirect("submission", templateVars);
+        } else {
+          res.render("submission_received", templateVars);
         }
-      }).catch((err) => {
-        throw err;
+      })
+      .catch((err) => {
+        res.render("index", err);
       })
   });
 

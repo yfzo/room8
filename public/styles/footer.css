@@ -27,6 +27,7 @@ footer {
   flex-direction: row;
   padding: 16px;
   width: 100%;
+  position: absolute;
 }
 
 .room8-love {

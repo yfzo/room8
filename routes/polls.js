@@ -20,6 +20,8 @@ module.exports = (knex) => {
         description: req.body.description,
         options: req.body.options,
         email: req.body.email,
+        links: [],
+        answersProvided: [],
         err: ""
       };
 
@@ -64,6 +66,11 @@ module.exports = (knex) => {
                   // Confirmation of successful insertion
                   mailerData.emailVars.subLinks.push(subID);
                   console.log('Inserted things ( ಠ ͜ʖಠ)');
+
+                  //push sub id
+                  templateVars.links.push(subID);
+                  templateVars.answersProvided.push(false);
+
                 })
               )
             }
