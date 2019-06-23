@@ -256,14 +256,14 @@ $('input.final').click(function(){
 
 
     if (arraysEqual(ranking, OGOptions) && !dontCheck) confirmed = false;
-    let jsonRank = JSON.stringify(answers)
+    // let jsonRank = answers
 
     if (confirmed) {
       $.ajax({
         url: $('form#new-submission').attr('action'),
         type: 'POST',
         headers: {"X-HTTP-Method-Override": "PUT"},
-        data : {answers: jsonRank},
+        data : {answers: answers},
         success: function(){
           console.log('form submitted.');
         }
