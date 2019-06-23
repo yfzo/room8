@@ -244,7 +244,6 @@ $('input.final').click(function(){
     // To store options in order of rank
     let ranking = [];
 
-    console.log('OGOptions: ', OGOptions)
     // Weights
     let answers = [];
     $( `[data-groups] [data-group='answers'] [data-item]` ).each(function( index ) {
@@ -255,7 +254,6 @@ $('input.final').click(function(){
       answers.push(OGOptions.length - i);
     }
 
-    console.log(`ranking: ${ranking}, OGOptions: ${OGOptions}, equality: ${arraysEqual(ranking, OGOptions)}`)
 
     if (arraysEqual(ranking, OGOptions) && !dontCheck) confirmed = false;
     let jsonRank = JSON.stringify(answers)
