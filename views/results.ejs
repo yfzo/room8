@@ -7,7 +7,14 @@
 
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" type="text/css" />
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="/styles/header.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/footer.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/results.css" type="text/css"/>
+    <!-- Logo Font -->
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans|Ubuntu&display=swap" rel="stylesheet">
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
@@ -57,16 +64,23 @@
             <th></th>
             <th></th>
           </tr>
+          <% for (let i = 0; i < links.length; i++) { %>
           <tr>
-            <td>Add status light</td>
-            <td id="subLink">texAdd link</td>
+            <% if (answersProvided) { %>
+            <td>INACTIVE</td>
+            <% } else { %>
+              <td>ACTIVE</td>
+            <% } %>
+            <td id="subLink"><%= links[i] %></td>
+            <% if (!answersProvided) { %>
             <td><button onclick="copyURL('#subLink')">Copy URL</button></td>
-            <td><button>DEACTIVATE</button></td>
+            <% } %>
           </tr>
+          <% } %>
         </table>
 
         <p>Generate new URL for additional voter</p>
-        <button>Add NEW URL</button>
+        <button onclick="window.location.reload();">Add NEW URL</button>
         <br>
 
         <button>** END POLL **</button>

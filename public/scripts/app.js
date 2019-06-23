@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
 // =========================================================
-// !!!!!!!!!!!!! SET UP FOR SUBMISSIONS FORM !!!!!!!!!!!!!!!
+// !!!!!!!!!!!!! SET UP FOR VOTER_SUBMISSIONS FORM !!!!!!!!!!!!!!!
 // =========================================================
   let OGOptions = [];
   var jqueryOps = $('.uk-card').toArray();
@@ -13,9 +13,10 @@ $(document).ready(function() {
 // !!!!!!!!!!!!! NEW_POLLS_FORM LOGIC !!!!!!!!!!!!!
 // ==================================================
 
-// ===========================
-// ANIMATING NEW_POLLS_FORM
-// ===========================
+  // ===========================
+  // ANIMATING NEW_POLLS_FORM
+  // ===========================
+
   var current_fs, next_fs, previous_fs; //fieldsets
   var left, opacity, scale; //fieldset properties which we will animate
   var animating; //flag to prevent quick multi-click glitches
@@ -109,9 +110,11 @@ $(".previous").click(function(){
   });
 });
 
+
 // ==============================
 // ON SUBMIT OF NEW_POLLS_FORM
 // ==============================
+
 
 $(".submit").click(function(e){
   e.preventDefault();
@@ -120,12 +123,13 @@ $(".submit").click(function(e){
       url: $('form#msform').attr('action'),
       type: 'POST',
       data : $('#msform').serialize(),
-      success: function(){
-        console.log('form submitted.');
-        console.log(this.data);
+      success: function(response){
+        //window.location.href ="/polls/"+response.new_id;
+        console.log(response.new_id);
       }
     });
 })
+
 
 // ===================================
 //  DELETE NEW_POLLS_FORM INPUT FIELD
@@ -144,9 +148,9 @@ $('a.plusButton').click(function(e){
   $( "section.options" ).append('<span class="optionInput"><input type="text" name="options" placeholder="An option" /> <span class="close"><a href="#" class="close"></a></span></span>');
 })
 
-// ===============================================================
-//  CHECK YOUR ENTERED INFORMATION BEFORE NEW_POLL_FORM SUBMISSION
-// ===============================================================
+// ==================================================================
+//  CCONFIRM YOUR ENTERED INFORMATION BEFORE NEW_POLL_FORM SUBMISSION
+// ==================================================================
 
 $('input.final').click(function(){
   $('p.question').text($('input[name="question"]').val());
@@ -154,7 +158,7 @@ $('input.final').click(function(){
   $('ul.arrow').html('');
   let i = 1;
   for (elem of $('input[name="options"]').toArray()) {
-    let entry = elem.value.replace(' ', '');
+    let entry = elem.value
     $('ul.arrow').append(`<li style="list-style: none">- ${entry}</li>`)
     i++
   }
@@ -167,6 +171,7 @@ $('input.final').click(function(){
 // ============================================================================================
 //         SEND SUBMISSIONS_FORM: CURRENTLY NOT HITTING 'PUT' ROUTE, LOOKING FOR 'POST' ROUTE
 // =============================================================================================
+
   $("#submit-answers").click(function(e){
     e.preventDefault();
     // To store options in order of rank

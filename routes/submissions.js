@@ -6,51 +6,29 @@ const uuidv4 = require('uuid/v4');
 
 module.exports = (knex) => {
 
-  router.get("/test", (req, res) => {
-    res.render("submission");
-  });
-
-  router.post("/test", (req, res) => {
-    console.log(req.body);
-    let templateVars = {
-      answers: req.body.answers
-    };
-    // knex("submissions")
-    // .insert({'answers': templateVars.answers, "id": req.params.id})
-    // .then(() => res.send("ANSWERS SENT"))
-    // .catch((err) => {console.log(err); throw err})
-    // .finally(() => knex.destroy());
-  });
-
-
-  router.post("/:id", (req, res) => {
-    console.log(req.body);
-    let templateVars = {
-      answers: req.body.answers
-    };
-    // knex("submissions")
-    // .insert({'answers': templateVars.answers, "id": req.params.id})
-    // .then(() => res.send("ANSWERS SENT"))
-    // .catch((err) => {console.log(err); throw err})
-    // .finally(() => knex.destroy());
-  });
-
-
+  // PROBLEMATIC NEED TO REVIEW FORM ROUTE
   //submission submit to update to show answers have been submitted
-  // router.put("/:id", (req, res) => {
-  //   let templateVars = {
-  //     answers: req.body.answers
-  //   };
-  //   knex("submissions")
-  //   .insert({'answers': templateVars.answers, "id": req.params.id})
-  //   .then(() => res.send("ANSWERS SENT"))
-  //   .catch((err) => {console.log(err); throw err})
-  //   .finally(() => knex.destroy());
-  // });
+//   router.put("/:id", (req, res) => {
+//     let templateVars = {
+//       answers: req.body.answers.map( ans => parseInt(ans))
+//     };
+//     console.log(`les answers: ${templateVars.answers}\n---\nid:${req.params.id}`);
+    // knex("submissions")
+    // .insert({'answers': templateVars.answers, "id": req.params.id})
+    // .then(() => res.send("ANSWERS SENT"))
+    // .catch((err) => {console.log(err); throw err})
+    // .finally(() => knex.destroy());
+
+//      STRETCH FOR ADDING A NEW URL
+//   router.post("/:id", (req, res) => {
+//     knex("submissions")
+//     .insert({'answers': null, "id": uuidv4})
+//     .then(() => res.send("ANSWERS SENT"))
+//     .catch((err) => {console.log(err); throw err})
+//   });
 
 
   //get submission form where knex filter is based on submission ID
-
   router.get("/:id", (req, res) => {
 
     knex
@@ -64,15 +42,16 @@ module.exports = (knex) => {
             question: row[0].question,
             description: row[0].description,
             options: row[0].options,
+            submissionId: req.params.id
           };
-          res.send("LOAD POLL, CORRECT ID");
-          //res.render("submission", templateVars);
+          //res.send("LOAD POLL, CORRECT ID");
+          res.render("submission", templateVars);
         }else {
           let templateVars = {
             err: "Invalid poll. Please confirm poll link or contact poll admin."
           };
           res.send("LOAD INDEX, INVALID POLL ID");
-          res.render("submission", templateVars);
+          //res.redirect("submission", templateVars);
         }
       }).catch((err) => {
         throw err;

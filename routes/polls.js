@@ -5,10 +5,7 @@ const router  = express.Router();
 const uuidv4  = require("uuid/v4");
 const PORT    = process.env.PORT || 8080;
 
-
-
 module.exports = (knex) => {
-
 
   const room8 = require("../room8lib")(knex);
 
@@ -77,7 +74,7 @@ module.exports = (knex) => {
               })
             // send email
 
-            res.send("OKAY");
+            res.json({ "new_id": templateVars.id})
           })
           .catch((err) => {
             console.log(err);
@@ -88,7 +85,6 @@ module.exports = (knex) => {
 
       } else {
         templateVars.err = "Missing information, please validate."
-        res.send("FAILED: MISSING INFORMATION");
         //res.render("new_poll", templateVars);
       }
     } else {
@@ -107,7 +103,7 @@ module.exports = (knex) => {
 
   //route to get SCORES
   router.get("/:id/score", (req, res) => {
-    room8.getResults(req.params.id , (results) => {
+    room8.getResults(req.params.id , () => {
       knex("polls")
       .select("*")
       .from("polls")
@@ -136,35 +132,42 @@ module.exports = (knex) => {
   //render admin page filtered based on poll id
   router.get("/:id", (req, res) => {
 
-    console.log("INSIDE RES", req.params);
+    const templateVars = {};
 
     //get information about the poll
-    knex("polls")
-      .select("*")
-      .from("polls")
-      .where('polls.id', '=', req.params.id) //params is only passing an ID
+    knex.select(knex.raw("polls.id, question, description, answers, options, submissions.id AS sub_id")).from('polls').join('submissions', 'polls.id', '=', 'submissions.poll_id')
+      .where('polls.id', '=',req.params.id) //params is only passing an ID
       .then((row) => {
 
         //get submissions value
-
         room8.getResults(req.params.id, (results) => {
-          const templateVars = {
-            question: row[0].question,
-            description: row[0].description,
-            options: row[0].options,
-            data: results.scores
-          };
+
+          templateVars["question"] = row[0].question;
+          templateVars["description"] = row[0].description;
+          templateVars["options"] = row[0].options;
+          templateVars["data"] = results.scores;
+
+          let links = [];
+          let answersProvided = [];
+          for (let i = 0; i < row.length; i++){
+            links.push(row[i].sub_id);
+
+            if (row[i].answers !== null){
+              answersProvided.push(true);
+            } else {answersProvided.push(false);}
+          }
+          templateVars["links"] = links;
+          templateVars["answersProvided"] = answersProvided;
+
           res.render("results", templateVars);
         });
 
-      }).catch((err) => {
-        console.log("RESPONSE: ", err);
+      }).catch(() => {
         let templateVars = {
           err: "Invalid results link. Please confirm link."
         };
         res.render("index", templateVars);
       });
   });
-
   return router;
 }
