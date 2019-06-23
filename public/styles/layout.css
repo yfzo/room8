@@ -375,6 +375,7 @@ section.options {
   width: 100% !important;
 }
 
+<<<<<<< HEAD
 #app-description {
   text-align: center;
   flex-direction: column;
@@ -382,4 +383,8 @@ section.options {
 
 .index h1, h2 {
   margin-top: 1rem;
+=======
+a:hover {
+  text-decoration: none;
+>>>>>>> styling/header-link-to-index-and-more
 }
