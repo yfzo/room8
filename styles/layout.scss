@@ -11,10 +11,6 @@ div {
   justify-content: space-between;
 }
 
-// body {
-//   // font-family: 'Noto Sans', sans-serif;
-// }
-
 main {
   flex-direction: column;
   max-width: 1280px;
@@ -289,7 +285,7 @@ div.flex.heading2 {
   color: white;
 }
 
-input[name="option"] {
+input[name="options"] {
   width: 14em !important;
 }
 
@@ -340,19 +336,6 @@ ul {
     padding: 0 0 0 20px;
   }
 
-ul.arrow li::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 6px;
-      height: 5px;
-      width: 5px;
-      border: 1px solid #541E5E;
-      border-width: 2px 2px 0 0;
-      transform: rotate(45deg);
-      left: 8em;
-}
-
 input[name="voter-number"] {
   display: block;
   margin: .5em auto !important;
@@ -361,5 +344,31 @@ input[name="voter-number"] {
 
 .flex.plus {
   justify-content: space-evenly;
+}
+
+pre {
+  display: none !important;
+}
+
+input.num {
+  width: 4em !important;
+}
+
+li {
+  padding: 0;
+}
+
+p.plusButton {
+  color: #ab9e9e;
+  font-weight: 400;
+  font-size: 1.5em;
+}
+
+a.plusButton:hover {
+  text-decoration: none;
+}
+
+section.options {
+  width: 100% !important;
 }
 
