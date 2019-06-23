@@ -6,18 +6,20 @@ const uuidv4 = require('uuid/v4');
 
 module.exports = (knex) => {
 
-  // PROBLEMATIC NEED TO REVIEW FORM ROUTE
-  //submission submit to update to show answers have been submitted
-//   router.put("/:id", (req, res) => {
-//     let templateVars = {
-//       answers: req.body.answers.map( ans => parseInt(ans))
-//     };
-//     console.log(`les answers: ${templateVars.answers}\n---\nid:${req.params.id}`);
-    // knex("submissions")
-    // .insert({'answers': templateVars.answers, "id": req.params.id})
-    // .then(() => res.send("ANSWERS SENT"))
-    // .catch((err) => {console.log(err); throw err})
-    // .finally(() => knex.destroy());
+
+  //sumitting a new poll
+  router.post("/:id", (req, res) => {
+
+    let templateVars = {
+      answers: req.body.answers.map( ans => parseInt(ans)) //request answer is type string
+    };
+
+    knex("submissions")
+    .where({"id": req.params.id})
+    .update({'answers': templateVars.answers})
+    .then((data) => res.send(data))
+    .catch((err) => {console.log(err); throw err})
+  });
 
 //      STRETCH FOR ADDING A NEW URL
 //   router.post("/:id", (req, res) => {
