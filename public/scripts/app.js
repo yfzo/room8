@@ -33,7 +33,7 @@ $(document).ready(function() {
     let form = $('form#msform')[0];
 
     if (next_fs[0].id === 'confirmation') {
-      $('input#email').val('youremail@email.com');
+      if ($('input#email').val() === '') $('input#email').val('youremail@email.com');
       $( "p.category.options" ).html('Options:');
     }
 
@@ -104,7 +104,7 @@ $(".previous").click(function(){
 
   if (previous_fs[0].id === 'options') {
     $('input.optionsInput').val('');
-    $('input#email').val('youremail@email.com');
+    if ($('input#email').val() === '') $('input#email').val('youremail@email.com');
     $('input.num').val(1);
   }
 
@@ -132,7 +132,7 @@ $(".previous").click(function(){
     easing: 'easeInOutBack'
   }).promise().done(function () {
         // give email field a value when animating so form doesn't error out
-        $('input#email').val('youremail@email.com');
+        if ($('input#email').val() === '') $('input#email').val('youremail@email.com');
         $('input.optionsInput').val('An option');
         $('input.num').val(1);
     });
@@ -201,7 +201,7 @@ $('input.final').click(function(){
   $('p.description').text($('textarea[name="description"]').val());
   $('ul.arrow').html('');
   // clear default email value
-  $('input#email').val('');
+  if ($('input#email').val() === 'youremail@email.com') $('input#email').val('');
   let i = 1;
 
   if ($('input[name="options"]').toArray().length < 2) {
