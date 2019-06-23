@@ -159,8 +159,11 @@ $(".submit").click(function(e){
     form.reportValidity();
     return;
   } else if ($('input[name="options"]').toArray().filter((entry) => $(entry).val().replace(/\s/g, '').length).length < 2) {
-    alert('Please input at least two options');
+    swal('HEY!', 'Please input at least two options', 'error');
     return;
+  } else if (new Set($('input[name="options"]').toArray().map((entry) => $(entry).val())).size !== $('input[name="options"]').toArray().map((entry) => $(entry).val()).length) {
+      swal('HEY!', 'Options have to be unique', 'error');
+      return;
   } else {
     $.ajax({
         url: $('form#msform').attr('action'),
@@ -173,6 +176,13 @@ $(".submit").click(function(e){
     });
   }
 })
+
+if ($('input[name="options"]').toArray().filter((entry) => $(entry).val().replace(/\s/g, '').length).length < 2) {
+    $( "p.category.options" ).append('<p style="color: #d60a0a; ">Please input at least two options.</p>');
+  } else if (new Set($('input[name="options"]').toArray().map((entry) => $(entry).val())).size !== $('input[name="options"]').toArray().map((entry) => $(entry).val()).length) {
+      $( "p.category.options" ).append('<p style="color: #d60a0a; ">Options have to be unique.</p>');
+      return;
+  }
 
 
 // ===================================
@@ -196,6 +206,7 @@ $('a.plusButton').click(function(e){
 //  CCONFIRM YOUR ENTERED INFORMATION BEFORE NEW_POLL_FORM SUBMISSION
 // ==================================================================
 
+
 $('input.final').click(function(){
   $('p.question').text($('input[name="question"]').val());
   $('p.description').text($('textarea[name="description"]').val());
@@ -203,9 +214,12 @@ $('input.final').click(function(){
   // clear default email value
   if ($('input#email').val() === 'youremail@email.com') $('input#email').val('');
   let i = 1;
-
+  // debugger
   if ($('input[name="options"]').toArray().filter((entry) => $(entry).val().replace(/\s/g, '').length).length < 2) {
     $( "p.category.options" ).append('<p style="color: #d60a0a; ">Please input at least two options.</p>');
+  } else if (new Set($('input[name="options"]').toArray().map((entry) => $(entry).val())).size !== $('input[name="options"]').toArray().map((entry) => $(entry).val()).length) {
+      $( "p.category.options" ).append('<p style="color: #d60a0a; ">Options have to be unique.</p>');
+      return;
   } else {
     for (elem of $('input[name="options"]').toArray()) {
       let entry = elem.value
@@ -254,7 +268,6 @@ $('input.final').click(function(){
       answers.push(OGOptions.length - i);
     }
 
-
     if (arraysEqual(ranking, OGOptions) && !dontCheck) confirmed = false;
     // let jsonRank = answers
 
@@ -266,17 +279,31 @@ $('input.final').click(function(){
         data : {answers: answers},
         success: function(){
           console.log('form submitted.');
+          location.reload();
         }
       });
     } else {
-      if (confirm('Are you sure you want to submit this form with the default ranking?')) {
-        confirmed = true;
-        dontCheck = true;
-        alert('Okay then!');
-      } else {
-        alert('Change the rank order first!');
-      }
+      swal({
+          title: "Are you sure you want to go with the default ranking?",
+          text: "Click anywhere outside the window to cancel.",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "btn-danger",
+          confirmButtonText: "Yup!",
+          cancelButtonText: "No, cancel it!",
+          closeOnConfirm: false,
+          closeOnCancel: false
+       }).then(
+       function(isConfirm){
+         if (isConfirm){
+           swal("Your call, boss!", "Okay then!", "success");
+           confirmed = true;
+           dontCheck = true;
+          } else {
+            swal("Cancelled", "Change the rank order first!", "error");
+          }
+      });
     }
   });
 
-});
+})
