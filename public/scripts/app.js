@@ -159,10 +159,10 @@ $(".submit").click(function(e){
     form.reportValidity();
     return;
   } else if ($('input[name="options"]').toArray().filter((entry) => $(entry).val().replace(/\s/g, '').length).length < 2) {
-    alert('Please input at least two options');
+    swal('HEY!', 'Please input at least two options', 'error');
     return;
   } else if (new Set($('input[name="options"]').toArray().map((entry) => $(entry).val())).size !== $('input[name="options"]').toArray().map((entry) => $(entry).val()).length) {
-      alert('Options have to be unique');
+      swal('HEY!', 'Options have to be unique', 'error');
       return;
   } else {
     $.ajax({
@@ -268,7 +268,6 @@ $('input.final').click(function(){
       answers.push(OGOptions.length - i);
     }
 
-
     if (arraysEqual(ranking, OGOptions) && !dontCheck) confirmed = false;
     // let jsonRank = answers
 
@@ -284,14 +283,27 @@ $('input.final').click(function(){
         }
       });
     } else {
-      if (confirm('Are you sure you want to submit this form with the default ranking?')) {
-        confirmed = true;
-        dontCheck = true;
-        alert('Okay then!');
-      } else {
-        alert('Change the rank order first!');
-      }
+      swal({
+          title: "Are you sure you want to go with the default ranking?",
+          text: "Click anywhere outside the window to cancel.",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "btn-danger",
+          confirmButtonText: "Yup!",
+          cancelButtonText: "No, cancel it!",
+          closeOnConfirm: false,
+          closeOnCancel: false
+       }).then(
+       function(isConfirm){
+         if (isConfirm){
+           swal("Your call, boss!", "Okay then!", "success");
+           confirmed = true;
+           dontCheck = true;
+          } else {
+            swal("Cancelled", "Change the rank order first!", "error");
+          }
+      });
     }
   });
 
-});
+})
