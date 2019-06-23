@@ -26,3 +26,7 @@ button#submit-answers:hover {
 .uk-drag, .uk-drag * {
   text-align: center;
 }
+
+#new-submission .options * {
+  width: 100%;
+}
