@@ -24,15 +24,11 @@ module.exports = (knex) => {
 
 
   router.post("/:id", (req, res) => {
-    console.log(req.body);
-    let templateVars = {
-      answers: req.body.answers
-    };
-    // knex("submissions")
-    // .insert({'answers': templateVars.answers, "id": req.params.id})
-    // .then(() => res.send("ANSWERS SENT"))
-    // .catch((err) => {console.log(err); throw err})
-    // .finally(() => knex.destroy());
+
+    knex("submissions")
+    .insert({'answers': null, "id": uuidv4})
+    .then(() => res.send("ANSWERS SENT"))
+    .catch((err) => {console.log(err); throw err})
   });
 
 
