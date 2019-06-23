@@ -105,7 +105,7 @@ $(".previous").click(function(){
   if (previous_fs[0].id === 'options') {
     $('input.optionsInput').val('');
     if ($('input#email').val() === '') $('input#email').val('youremail@email.com');
-    $('input.num').val(1);
+    $('input.num').val(2);
   }
 
   //show the previous fieldset
@@ -133,15 +133,15 @@ $(".previous").click(function(){
   }).promise().done(function () {
         // give email field a value when animating so form doesn't error out
         if ($('input#email').val() === '') $('input#email').val('youremail@email.com');
-        $('input.optionsInput').val('An option');
-        $('input.num').val(1);
+        $('input.optionsInput').val(' ');
+        $('input.num').val(2);
     });
 });
 
 
-// ==============================
-// ON SUBMIT OF NEW_POLLS_FORM
-// ==============================
+// ====================================================
+// ON SUBMIT OF NEW_POLLS_FORM: TO-DO... ROUTE REDIRECT
+// ====================================================
 
 
 $(".submit").click(function(e){
@@ -149,8 +149,8 @@ $(".submit").click(function(e){
 
   let form = $('form#msform')[0];
 
-  if ($('input.num').val() <= 0) {
-    $('input.num')[0].setCustomValidity('The number must not be zero.');
+  if ($('input.num').val() <= 1) {
+    $('input.num')[0].setCustomValidity('More than one person is needed to make a decision!');
   } else {
     $('input.num')[0].setCustomValidity('');
   }
@@ -158,8 +158,8 @@ $(".submit").click(function(e){
   if (form.checkValidity() === false) {
     form.reportValidity();
     return;
-  } else if ($('input[name="options"]').toArray().length < 2) {
-    $( "p.category.options" ).append('<p style="color: #d60a0a; ">Please input at least two options.</p>');
+  } else if ($('input[name="options"]').toArray().filter((entry) => $(entry).val().replace(/\s/g, '').length).length < 2) {
+    alert('Please input at least two options');
     return;
   } else {
     $.ajax({
@@ -189,7 +189,7 @@ $("section.options").on('click', 'a.close', function(event) {
 // ================================
 
 $('a.plusButton').click(function(e){
-  $( "section.options" ).append('<span class="optionInput"><input type="text" class="optionsInput" name="options" value="default" placeholder="An option" required/> <span class="close"><a href="#" class="close"></a></span></span>');
+  $( "section.options" ).append('<span class="optionInput"><input type="text" class="optionsInput" name="options" value=" " placeholder="An option" required/> <span class="close"><a href="#" class="close"></a></span></span>');
 })
 
 // ==================================================================
@@ -204,7 +204,7 @@ $('input.final').click(function(){
   if ($('input#email').val() === 'youremail@email.com') $('input#email').val('');
   let i = 1;
 
-  if ($('input[name="options"]').toArray().length < 2) {
+  if ($('input[name="options"]').toArray().filter((entry) => $(entry).val().replace(/\s/g, '').length).length < 2) {
     $( "p.category.options" ).append('<p style="color: #d60a0a; ">Please input at least two options.</p>');
   } else {
     for (elem of $('input[name="options"]').toArray()) {
@@ -219,9 +219,9 @@ $('input.final').click(function(){
 // !!!!!!!!!!!!! SUBMISSIONS_FORM LOGIC !!!!!!!!!!!!!
 // ==================================================
 
-// ============================================================================================
-//         SEND SUBMISSIONS_FORM: CURRENTLY NOT HITTING 'PUT' ROUTE, LOOKING FOR 'POST' ROUTE
-// =============================================================================================
+// ===================================================================================================
+//         SEND SUBMISSIONS_FORM: TO-DO... CURRENTLY NOT HITTING 'PUT' ROUTE, LOOKING FOR 'POST' ROUTE
+// ===================================================================================================
 
   let dontCheck = false;
   $("#submit-answers").click(function(e){
