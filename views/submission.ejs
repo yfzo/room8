@@ -30,14 +30,14 @@
 
     <main class="poll-container">
 
-      <form id="new-submission" method="PUT" action="/submissions/test">
+      <form id="new-submission" method="POST" action="/submissions/<%=submissionId%>">
 
         <div class="poll-header">
           <div id="poll-title">
-            <h2>What do we want for dinner?</h2>
+            <h2><%=question%></h2>
           </div>
           <div id="poll-description">
-            <h6>These are the options that are close to us</h6>
+            <h6><%=description%></h6>
           </div>
         </div>
         <h5>Please drag and drop to rank the following options</h5>
@@ -45,24 +45,17 @@
           <div class="uk-child-width-1-2@s" uk-grid data-groups>
             <div class="answers" data-group="answers">
               <div uk-sortable="group: sortable-group">
-                <div class="uk-margin">
-                  <div data-item class="uk-card uk-card-default uk-card-body uk-card-small">Cat</div>
-                </div>
-                <div class="uk-margin">
-                  <div data-item class="uk-card uk-card-default uk-card-body uk-card-small">Dog</div>
-                </div>
-                <div class="uk-margin">
-                  <div data-item class="uk-card uk-card-default uk-card-body uk-card-small">Snake</div>
-                </div>
-                <div class="uk-margin">
-                  <div data-item class="uk-card uk-card-default uk-card-body uk-card-small">Apple</div>
-                </div>
+                <% for (let option of options) { %>
+                  <div class="uk-margin">
+                    <div data-item class="uk-card uk-card-default uk-card-body uk-card-small"><%=option%></div>
+                  </div>
+                <% } %>
               </div>
             </div>
           </div>
         </div>
-        <div class="submit">
-            <button type="submit">Submit!</button>
+        <div class="submit-answers">
+            <button type="submit" id="submit-answers">Submit!</button>
         </div>
       </form>
     </main>
