@@ -26,14 +26,8 @@ module.exports = (knex) => {
   return {
     sendMail: function (sendTo, templateData) {
       const DOMAIN = process.env.MAILGUN_DOMAIN;
-      const mg = mailgun({
-        apiKey: process.env.MAILGUN_KEY,
-        domain: DOMAIN
-      });
-      const {
-        emailVars,
-        templateName
-      } = templateData;
+      const mg = mailgun({ apiKey: process.env.MAILGUN_KEY, domain: DOMAIN });
+      const { emailVars, templateName } = templateData;
       const data = {
         from: `Room8 <postmaster@${DOMAIN}>`,
         to: sendTo,
@@ -54,7 +48,6 @@ module.exports = (knex) => {
       for (let i in row) {
         results[i] = row[i] / row.length;
       }
-
       return results;
     },
     calculate: function (response) {
@@ -71,17 +64,12 @@ module.exports = (knex) => {
           }
         }
       }
-
       // convert to percentages (4 sig-figs)
       let totalScore = 0;
       results.forEach( score => totalScore += score);
       results = results.map( x => Math.round((x / totalScore) * 10000) / 10000);
-      return {
-        "responses": responded,
-        "scores": results
-      };
+      return { "responses": responded, "scores": results };
     },
-
     getResults: function (poll_id, callback) {
       knex
         .select("answers", "id")
@@ -100,30 +88,5 @@ module.exports = (knex) => {
           console.warn(err);
         })
     }
-    // TODO [stretch of stretches] - check uniqueness
-    // findByUid: function (id, table, kCallback) {
-    //   knex
-    //     .select("*")
-    //     .from(table)
-    //     .where(knex.raw("poll_id::varchar(255)"), "=", id)
-    //     .asCallback(kCallback)
-    // },
-
-    // uniqueId: function (table, callback) {
-    //   const id = uuidv4().toString();
-
-    //   this.findByUid(id, table, (err, result) => {
-    //     console.log(result);
-    //     if (result === []) {
-    //       console.log('wtf')
-    //       knex.destroy();
-    //       return this.uniqueId(table, callback);
-
-    //     }
-    //     knex.destroy();
-    //     return callback(id);
-
-    //   });
-    // }
   }
 }
