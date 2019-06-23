@@ -9,16 +9,21 @@ module.exports = (knex) => {
 
   //sumitting a new poll
   router.post("/:id", (req, res) => {
+    try {
+      let templateVars = {
+        answers: req.body.answers.map( ans => parseInt(ans)) //request answer is type string
+      };
 
-    let templateVars = {
-      answers: req.body.answers.map( ans => parseInt(ans)) //request answer is type string
-    };
+      knex("submissions")
+      .where({"id": req.params.id})
+      .update({'answers': templateVars.answers})
+      .then((data) => {console.log('data: ', data)})
+      .catch((err) => {console.log(err); throw err});
 
-    knex("submissions")
-    .where({"id": req.params.id})
-    .update({'answers': templateVars.answers})
-    .then((data) => res.send(data))
-    .catch((err) => {console.log(err); throw err})
+    } catch (error) {
+      console.log(error, "error: missing data");
+    }
+
   });
 
 //      STRETCH FOR ADDING A NEW URL
