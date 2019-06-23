@@ -24,13 +24,14 @@ subjectMaker = (template) => {
 //////////////////////////////////////////////////////
 module.exports = (knex) => {
   return {
-    sendMail: function (sendTo, templateData) {
+    sendMail: function (sendTo, templateData, ccAddresses) {
       const DOMAIN = process.env.MAILGUN_DOMAIN;
       const mg = mailgun({ apiKey: process.env.MAILGUN_KEY, domain: DOMAIN });
       const { emailVars, templateName } = templateData;
       const data = {
         from: `Room8 <postmaster@${DOMAIN}>`,
         to: sendTo,
+        cc: (ccAddresses ? ccAddresses : []),
         subject: subjectMaker(templateName),
         template: templateName,
         "h:X-Mailgun-Variables": JSON.stringify(emailVars)
@@ -103,6 +104,26 @@ module.exports = (knex) => {
         .catch((err) => {
           console.warn(err);
         })
+    },
+
+    updatePollStatus: function (poll_id, still_active) {
+      knex.select("answers")
+      .from("submissions")
+      .where("poll_id", "=", poll_id)
+      .then( (rows) => {
+        const completed = new Array();
+        for (let row of rows) {
+          completed.push(row.answers ? true : false);
+        }
+        active = !(completed.indexOf(false) === -1)
+        knex("polls")
+        .where("id", "=", poll_id)
+        .update({"is_active": active})
+        .then(() => {
+          still_active = active;
+          console.log('Poll is active: ', active)
+        })
+      })
     }
   }
 }

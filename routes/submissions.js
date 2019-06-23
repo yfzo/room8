@@ -12,35 +12,32 @@ module.exports = (knex, room8) => {
         answers: req.body.answers.map(ans => parseInt(ans)) //request answer is type string
       };
 
-      knex.select(knex.raw("polls.id as poll_id, email, question, description, answers, options, submissions.id"))
+      knex.select(knex.raw("polls.id as poll_id, forward_emails, email, question, description, answers, options, submissions.id"))
         .from('polls')
         .join('submissions', 'polls.id', '=', 'submissions.poll_id')
-
-        //knex("submissions")
         .where("submissions.id", '=', req.params.id)
-        //.update({'answers': templateVars.answers})
         .then((rows) => {
-          console.log('found the rows: ', rows[0])
           knex("submissions")
             .where("id", "=", req.params.id)
             .update({
               'answers': templateVars.answers
             })
             .then(() => {
+              let still_active = true;
+              room8.updatePollStatus(rows[0].poll_id, still_active);
               const hostname = (req.hostname === 'localhost' ? `${req.hostname}:8080` : req.hostname);
               const mailerData = {
                 templateName: "new_vote",
                 emailVars: {
-                  hostname: hostname, // hostname from req?
+                  hostname: hostname,
                   pollID: rows[0].poll_id,
                   pollName: rows[0].question
                 }
               }
-              console.log('email:\n---\n', rows[0].email)
+              
               if (rows[0].email){
-                room8.sendMail(rows[0].email, mailerData);
+                room8.sendMail(rows[0].email, mailerData, rows[0].forward_addresses);
               }
-              //room8.sendMail(rows[0].email, mailerData); // add email, mailerData;
               res.send("Thank you for the submission");
             })
 
