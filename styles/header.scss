@@ -17,6 +17,7 @@ header {
     align-items: center;
 }
 
+// fixes div margin problems in header caused by div rule in layout.scss
 header div {
     margin: 0;
 }
@@ -62,10 +63,12 @@ button {
     }
 }
 
+// remove margins caused by other rules
 .row {
     margin: 0;
 }
 
+// header shadow
 header {
 	-webkit-box-shadow: 0 8px 6px -6px rgb(168, 136, 172);
 	   -moz-box-shadow: 0 8px 6px -6px rgb(168, 136, 172);

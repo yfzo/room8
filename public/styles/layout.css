@@ -374,3 +374,12 @@ a.plusButton:hover {
 section.options {
   width: 100% !important;
 }
+
+#app-description {
+  text-align: center;
+  flex-direction: column;
+}
+
+.index h1, h2 {
+  margin-top: 1rem;
+}
