@@ -11,10 +11,12 @@
     <link rel="stylesheet" href="/styles/header.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
     <link rel="stylesheet" href="/styles/footer.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/index.css" type="text/css" />
     <!-- Logo Font -->
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans|Ubuntu&display=swap" rel="stylesheet">
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
   </head>
 
@@ -23,51 +25,89 @@
 
     <main class="flex">
       <div class="flex">
-        <h1>room8</h1>
+        <h1><img id="hero" src="/images/header.png" alt="header image" width="1200"></h1>
       </div>
       <div class="flex">
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident esse, consequatur! Reiciendis iure, minus illum rerum quo qui magnam, nihil nisi, rem earum nobis maiores voluptas beatae laboriosam accusamus. Similique.</p>
+        <h4 class="header-description">Make decisions with your roommates, friends, and workmates quickly and anonymously!</h4>
       </div>
       <div class="flex">
-        <button><a href="/polls/new">Create New Poll</a></button>
+        <button class="call-to-action"><a id="header-link" href="/polls/new">Create New Poll</a></button>
       </div>
       <div class="flex">
-        <h2>How it works</h2>
+        <h2 id="features">How it works</h2>
       </div>
 
       <div class="flex features">
         <div class="feature flex">
-          <img src="https://www.placecage.com/300/200">
-          <p>Shiny feature description is shiny!</p>
+          <img src="/images/step_one.png" width="400">
+          <strong><p class="feature">Make a poll with your question and options!</p></strong>
         </div>
         <div class="feature flex">
-          <img src="https://www.placecage.com/300/200">
-          <p>Shiny feature description is shiny!</p>
+          <img id="second-feature" src="/images/step_two.png" width="400">
+          <strong><p class="feature two">Send out unique links to participants!</p></strong>
         </div>
         <div class="feature flex">
-          <img src="https://www.placecage.com/300/200">
-          <p>Shiny feature description is shiny!</p>
+          <img id="third-feature" src="/images/step_three.png" width="400">
+          <strong><p class="feature three">Make your decison based on feedback!</p></strong>
         </div>
       </div>
 
       <div class="flex emails">
         <div class="flex heading1"><h3>Instant e-mail notification</h3></div>
         <div class="flex heading1"><p>Get poll updates and results directly in your inbox! Making decisions has never been easier!</p></div>
+        <img src="/images/emails.png" alt="" width="600">
       </div>
 
       <div class="flex anonymous">
         <div class="flex heading2"><h3>Make impartial decisions, anonymously!</h3></div>
         <div class="flex heading2"><p>Make hard decisions with no bias with anonymous polling. You don't need to know who voted on what!</p></div>
+        <div class="flex anonimage"><img src="/images/voting.png" alt="" width="500"></div>
       </div>
 
-      <div class="testimonial flex">
+<!--       <div class="testimonial flex">
         <div class="quote flex">
           <h3>'I use room8 to make all my decisions!'</h3>
         </div>
         <div class="quote flex">
           <p><img class="testimonial" src="https://www.placecage.com/g/100/100" alt=""> - Some guy</p>
         </div>
+      </div> -->
+
+      <!-- testimonial -->
+
+    <section id="testimonial" class="parallax-section">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="ts-testimonial-slide">
+          <div class="ts-testimonial-item">
+            <p>"By having a bigger purpose, it just might be that Avira's building a 21st century design studio: the crucible of big, world-changing ideas."</p>
+            <div class="infor-client">
+              <span class="icon-client"><img src="assets/images/icon-testimonial.png" alt=""></span>
+              <span class="client-name">ROBERT SMITH</span>
+              <span class="client-position">Ceo of <a href="#">Geckoos.com</a></span>
+            </div>
+          </div>
+          <div class="ts-testimonial-item">
+            <p>"By having a bigger purpose, it just might be that Avira's building a 21st century design studio: the crucible of big, world-changing ideas."</p>
+            <div class="infor-client">
+              <span class="icon-client"><img src="assets/images/icon-testimonial.png" alt=""></span>
+              <span class="client-name">ROBERT SMITH</span>
+              <span class="client-position">Ceo of <a href="#">Geckoos.com</a></span>
+            </div>
+          </div>
+          <div class="ts-testimonial-item">
+            <p>"By having a bigger purpose, it just might be that Avira's building a 21st century design studio: the crucible of big, world-changing ideas."</p>
+            <div class="infor-client">
+              <span class="icon-client"><img src="assets/images/icon-testimonial.png" alt=""></span>
+              <span class="client-name">ROBERT SMITH</span>
+              <span class="client-position">Ceo of <a href="#">Geckoos.com</a></span>
+            </div>
+          </div>
+        </div>
       </div>
+    </section>
+
+
     </main>
 
     <% include ../partials/_footer %>
