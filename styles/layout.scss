@@ -376,26 +376,26 @@ section.options {
   width: 100% !important;
 }
 
-//home page styling
-
-#app-description {
-  text-align: center;
-  flex-direction: column;
-}
-
-.index h1, h2 {
-  margin-top: 1rem;
-}
-
 a:hover {
   text-decoration: none;
 }
 
-//submissions options styling
-
-.poll-container .options div {
-  width: 100%;
-}
 p.category.options {
   width: 100% !important;
+}
+
+.swal-button {
+  background-color: #5BBD9E;
+}
+
+.swal-footer {
+  text-align: center !important;
+}
+
+button.swal-button.swal-button--confirm:hover {
+  background-color: #5BBD9E !important;
+}
+
+button.swal-button.swal-button--confirm {
+  background-color: #5BBD9E !important;
 }
