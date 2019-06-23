@@ -223,8 +223,24 @@ $('input.final').click(function(){
 //         SEND SUBMISSIONS_FORM: CURRENTLY NOT HITTING 'PUT' ROUTE, LOOKING FOR 'POST' ROUTE
 // =============================================================================================
 
+  let dontCheck = false;
   $("#submit-answers").click(function(e){
+
     e.preventDefault();
+
+    let confirmed = true;
+
+    function arraysEqual(a, b) {
+      if (a === b) return true;
+      if (a == null || b == null) return false;
+      if (a.length != b.length) return false;
+
+      for (var i = 0; i < a.length; ++i) {
+        if (a[i] !== b[i]) return false;
+      }
+      return true;
+    }
+
     // To store options in order of rank
     let ranking = [];
 
@@ -238,16 +254,31 @@ $('input.final').click(function(){
       let i = ranking.indexOf(opt);
       answers.push(OGOptions.length - i);
     }
+
+    console.log(`ranking: ${ranking}, OGOptions: ${OGOptions}, equality: ${arraysEqual(ranking, OGOptions)}`)
+
+    if (arraysEqual(ranking, OGOptions) && !dontCheck) confirmed = false;
     let jsonRank = JSON.stringify(answers)
-    $.ajax({
-      url: $('form#new-submission').attr('action'),
-      type: 'POST',
-      headers: {"X-HTTP-Method-Override": "PUT"},
-      data : {answers: jsonRank},
-      success: function(){
-        console.log('form submitted.');
+
+    if (confirmed) {
+      $.ajax({
+        url: $('form#new-submission').attr('action'),
+        type: 'POST',
+        headers: {"X-HTTP-Method-Override": "PUT"},
+        data : {answers: jsonRank},
+        success: function(){
+          console.log('form submitted.');
+        }
+      });
+    } else {
+      if (confirm('Are you sure you want to submit this form with the default ranking?')) {
+        confirmed = true;
+        dontCheck = true;
+        alert('Okay then!');
+      } else {
+        alert('Change the rank order first!');
       }
-    });
+    }
   });
 
 });
