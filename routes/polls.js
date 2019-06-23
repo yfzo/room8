@@ -5,9 +5,7 @@ const router  = express.Router();
 const uuidv4  = require("uuid/v4");
 const PORT    = process.env.PORT || 8080;
 
-module.exports = (knex) => {
-
-  const room8 = require("../room8lib")(knex);
+module.exports = (knex, room8) => {
 
   //new form submit
   router.post("/", (req, res) => {
