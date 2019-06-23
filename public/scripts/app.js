@@ -280,6 +280,7 @@ $('input.final').click(function(){
         data : {answers: answers},
         success: function(){
           console.log('form submitted.');
+          location.reload();
         }
       });
     } else {

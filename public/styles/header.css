@@ -71,3 +71,11 @@ header {
   -moz-box-shadow: 0 8px 6px -6px #a888ac;
   box-shadow: 0 8px 6px -6px #a888ac;
 }
+
+h1.logo-text:hover {
+  text-decoration: none;
+}
+
+a#title:hover {
+  text-decoration: none;
+}
