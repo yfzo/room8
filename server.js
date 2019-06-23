@@ -46,21 +46,6 @@ app.get("/", (req, res) => {
 });
 
 
-//show poll for voter page
-app.get("/submissions/:id", (req, res) => {
-
-  let templateVars = {
-    //poll: submissions[req.params.id], // pass poll based on ID
-    err: "submission link is invalid, provide valid link, or contact poll admin"
-  };
-
-  if (req.params.id === submissions.sub_Id){
-    res.render("submission", templateVars);
-  } else {
-    res.render("index", templateVars); //prompt top bander for illegal entry
-  }
-})
-
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
