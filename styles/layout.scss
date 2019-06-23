@@ -399,8 +399,3 @@ a:hover {
 p.category.options {
   width: 100% !important;
 }
-
-//fixes text moving to the left when dragging options
-.uk-drag, .uk-drag * {
-  text-align: center;
-}
