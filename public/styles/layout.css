@@ -374,3 +374,7 @@ a.plusButton:hover {
 section.options {
   width: 100% !important;
 }
+
+a:hover {
+  text-decoration: none;
+}
