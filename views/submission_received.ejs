@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/styles/header.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
     <link rel="stylesheet" href="/styles/footer.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/submission_received.css" type="text/css" />
     <!-- Logo Font -->
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans|Ubuntu&display=swap" rel="stylesheet">
 
@@ -21,23 +22,25 @@
   <body>
     <% include ../partials/_header %>
 
-    <main class="main-container">
+    <main class="main-container thanks">
       <div>
         <h2>Thank you for voting!</h2>
-        <h6>If you would like to see the results at the end of the poll, please enter your email below</h6>
+        <img src="/images/confirmation.png" alt="" height="400">
+        <h6>If you would like to see the results at the end of the poll, please enter your email below:</h6>
       </div>
       <div class="email-input">
           <form method="PUT" action="/polls/:id">
             <div><input id="email" type="email" name="email" placeholder="room8@makingdecisions.ca"></div>
-            <button type="submit">Email Me</button>
+            <button type="submit" class="emailMe" type="email" >Email Me</button>
           </form>
       </div>
       <div class="new-poll-link">
-        <h5>Use room8 to Make Decisions Today</h5>
-        <a href="/polls/new"><button type="submit"> New Poll</button></a>
+        <h5>Use room8 to make a decision today!</h5>
+        <br>
+        <a href="/polls/new"><button type="submit"> Start Poll Now</button></a>
       </div>
     </main>
-    
+
     <% include ../partials/_footer %>
   </body>
 </html>
