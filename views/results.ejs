@@ -31,7 +31,7 @@
         <h1>Poll Results</h1>
 
         <div id="response-prompts">
-          <% 
+          <%
           let numOfResponses = 0;
           for (let i = 0; i < answersProvided.length; i++) {
             if (answersProvided[i]){
@@ -45,15 +45,10 @@
           </ul>
         </div>
       </div>
-      
+
       <div id="results-body">
         <h2><%= question %></h2>
         <article id="poll-results">
-
-            <div id="ranking">
-              <h4>Survey Says:</h4>
-                <%= options[score.findIndex(Math.max(...score))]%>
-            </div>
 
           <div id="poll-visualization">
             <% if (numOfResponses) { %>
@@ -95,7 +90,7 @@
           <button onclick="window.location.reload();">Add NEW URL</button>
           <br>
 
-          <button>** END POLL **</button>
+          <button>END POLL</button>
         </div>
 
       </main>
