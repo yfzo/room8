@@ -88,3 +88,22 @@ th#link-column-name {
   margin: 2em 0;
   padding: 2em 0 0 0;
 }
+
+#response-prompts li {
+  font-size: 1.35em;
+}
+
+li#responses-num {
+  padding-bottom: 1em;
+}
+
+#poll-visualization img {
+  width: 75%;
+}
+
+#poll-buttons {
+  width: 60%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}

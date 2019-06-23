@@ -382,3 +382,19 @@ a:hover {
 p.category.options {
   width: 100% !important;
 }
+
+.swal-button {
+  background-color: #5BBD9E;
+}
+
+.swal-footer {
+  text-align: center !important;
+}
+
+button.swal-button.swal-button--confirm:hover {
+  background-color: #5BBD9E !important;
+}
+
+button.swal-button.swal-button--confirm {
+  background-color: #5BBD9E !important;
+}
