@@ -104,6 +104,9 @@ $(".previous").click(function(){
     complete: function(){
       current_fs.hide();
       animating = false;
+      previous_fs.css({
+        'position': 'relative'
+      });
     },
     //this comes from the custom easing plugin
     easing: 'easeInOutBack'

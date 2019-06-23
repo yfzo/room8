@@ -228,6 +228,10 @@ div.flex.heading2 {
   margin-bottom: 20px;
 }
 
+// #options-fs.poll-fs {
+//   position: relative;
+// }
+
 /*progressbar*/
 #progressbar {
   margin-bottom: 30px;
@@ -372,3 +376,13 @@ section.options {
   width: 100% !important;
 }
 
+//home page styling
+
+#app-description {
+  text-align: center;
+  flex-direction: column;
+}
+
+.index h1, h2 {
+  margin-top: 1rem;
+}
