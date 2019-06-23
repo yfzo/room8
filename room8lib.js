@@ -36,7 +36,9 @@ module.exports = (knex) => {
         "h:X-Mailgun-Variables": JSON.stringify(emailVars)
       }
       mg.messages().send(data, function (err, body) {
-        if (err) throw err;
+        if (err) {
+          console.warn('Error occured while trying to send mail. Please see error stack below:\n', err);
+        }
         console.log(body); // Log Mailgun API response
       })
     },
