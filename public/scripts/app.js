@@ -180,7 +180,7 @@ $(".submit").click(function(e){
 if ($('input[name="options"]').toArray().filter((entry) => $(entry).val().replace(/\s/g, '').length).length < 2) {
     $( "p.category.options" ).append('<p style="color: #d60a0a; ">Please input at least two options.</p>');
   } else if (new Set($('input[name="options"]').toArray().map((entry) => $(entry).val())).size !== $('input[name="options"]').toArray().map((entry) => $(entry).val()).length) {
-      alert('Options have to be unique');
+      $( "p.category.options" ).append('<p style="color: #d60a0a; ">Options have to be unique.</p>');
       return;
   }
 
@@ -218,7 +218,7 @@ $('input.final').click(function(){
   if ($('input[name="options"]').toArray().filter((entry) => $(entry).val().replace(/\s/g, '').length).length < 2) {
     $( "p.category.options" ).append('<p style="color: #d60a0a; ">Please input at least two options.</p>');
   } else if (new Set($('input[name="options"]').toArray().map((entry) => $(entry).val())).size !== $('input[name="options"]').toArray().map((entry) => $(entry).val()).length) {
-      alert('Options have to be unique');
+      $( "p.category.options" ).append('<p style="color: #d60a0a; ">Options have to be unique.</p>');
       return;
   } else {
     for (elem of $('input[name="options"]').toArray()) {
