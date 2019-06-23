@@ -26,11 +26,28 @@ $(document).ready(function() {
   // =======================================
 
   $(".next").click(function(){
-    if(animating) return false;
-    animating = true;
 
     current_fs = $(this).parent();
     next_fs = $(this).parent().next();
+
+    let form = $('form#msform')[0];
+
+    if (next_fs[0].id === 'confirmation') {
+      $('input#email').val('youremail@email.com');
+      $( "p.category.options" ).html('Options:');
+    }
+
+    form.reportValidity();
+    if (form.checkValidity() === false) return false;
+
+
+    if (next_fs[0].id === 'options') {
+      $('input.optionsInput').val('');
+    }
+
+    if(animating) return false;
+    animating = true;
+
 
   // ============================================================================
   //  activate next step on NEW_POLLS_FORM progressbar using the index of next_fs
@@ -85,6 +102,12 @@ $(".previous").click(function(){
   //de-activate current step on progressbar
   $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
 
+  if (previous_fs[0].id === 'options') {
+    $('input.optionsInput').val('');
+    $('input#email').val('youremail@email.com');
+    $('input.num').val(1);
+  }
+
   //show the previous fieldset
   previous_fs.show();
   //hide the current fieldset with style
@@ -107,7 +130,12 @@ $(".previous").click(function(){
     },
     //this comes from the custom easing plugin
     easing: 'easeInOutBack'
-  });
+  }).promise().done(function () {
+        // give email field a value when animating so form doesn't error out
+        $('input#email').val('youremail@email.com');
+        $('input.optionsInput').val('An option');
+        $('input.num').val(1);
+    });
 });
 
 
@@ -119,15 +147,31 @@ $(".previous").click(function(){
 $(".submit").click(function(e){
   e.preventDefault();
 
-  $.ajax({
-      url: $('form#msform').attr('action'),
-      type: 'POST',
-      data : $('#msform').serialize(),
-      success: function(response){
-        //window.location.href ="/polls/"+response.new_id;
-        console.log(response.new_id);
-      }
+  let form = $('form#msform')[0];
+
+  if ($('input.num').val() <= 0) {
+    $('input.num')[0].setCustomValidity('The number must not be zero.');
+  } else {
+    $('input.num')[0].setCustomValidity('');
+  }
+
+  if (form.checkValidity() === false) {
+    form.reportValidity();
+    return;
+  } else if ($('input[name="options"]').toArray().length < 2) {
+    $( "p.category.options" ).append('<p style="color: #d60a0a; ">Please input at least two options.</p>');
+    return;
+  } else {
+    $.ajax({
+        url: $('form#msform').attr('action'),
+        type: 'POST',
+        data : $('#msform').serialize(),
+        success: function(response){
+          //window.location.href ="/polls/"+response.new_id;
+          console.log(response.new_id);
+        }
     });
+  }
 })
 
 
@@ -145,7 +189,7 @@ $("section.options").on('click', 'a.close', function(event) {
 // ================================
 
 $('a.plusButton').click(function(e){
-  $( "section.options" ).append('<span class="optionInput"><input type="text" name="options" placeholder="An option" /> <span class="close"><a href="#" class="close"></a></span></span>');
+  $( "section.options" ).append('<span class="optionInput"><input type="text" class="optionsInput" name="options" value="default" placeholder="An option" required/> <span class="close"><a href="#" class="close"></a></span></span>');
 })
 
 // ==================================================================
@@ -156,11 +200,18 @@ $('input.final').click(function(){
   $('p.question').text($('input[name="question"]').val());
   $('p.description').text($('textarea[name="description"]').val());
   $('ul.arrow').html('');
+  // clear default email value
+  $('input#email').val('');
   let i = 1;
-  for (elem of $('input[name="options"]').toArray()) {
-    let entry = elem.value
-    $('ul.arrow').append(`<li style="list-style: none">- ${entry}</li>`)
-    i++
+
+  if ($('input[name="options"]').toArray().length < 2) {
+    $( "p.category.options" ).append('<p style="color: #d60a0a; ">Please input at least two options.</p>');
+  } else {
+    for (elem of $('input[name="options"]').toArray()) {
+      let entry = elem.value
+      $('ul.arrow').append(`<li style="list-style: none">- ${entry}</li>`)
+      i++
+    }
   }
 });
 
