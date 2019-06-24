@@ -45,9 +45,9 @@ module.exports = (knex, room8) => {
             const mailerData = {
               templateName: "new_poll",
               emailVars: {
-                pollName: templateVars.question,
+                pollName: newPoll.question,
                 hostname: hostname, // hostname from req?
-                pollID: templateVars.id,
+                pollID: newPoll.id,
                 subLinks: []
               }
             }
