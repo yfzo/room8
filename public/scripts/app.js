@@ -310,4 +310,14 @@ $('input.final').click(function(){
     }
   });
 
-})
+  $('button.copyURL').on('click', (e) => {
+    console.log('blah')
+    var $temp = $("<input>");
+    $("body").append($temp);
+    $temp.val(`http://localhost:8080/submissions/${e.target.id}`).select();
+    document.execCommand("copy");
+    $temp.remove();
+    //swal('Copied to clipboard!');
+  })
+
+});
