@@ -53,7 +53,7 @@ module.exports = (knex) => {
       }
       return results;
     },
-    calculate: function (response) {
+    doTheBorda: function (response) {
       for (var i in response){
         if (response[i].answers){
           var answerLength = response[i].answers.length
@@ -87,7 +87,7 @@ module.exports = (knex) => {
           if (res.length > 0) {
             let calculated;
             try{
-              calculated = this.calculate(res);
+              calculated = this.doTheBorda(res);
             }
             catch (err){
               console.log(err);
