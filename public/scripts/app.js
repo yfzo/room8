@@ -242,7 +242,7 @@ $('input.final').click(function(){
 // ===================================================================================================
 
   let dontCheck = false;
-  $("#submit-answers").click(function(e){
+  $("button#submit-answers").click(function(e){
 
     e.preventDefault();
 
@@ -265,7 +265,7 @@ $('input.final').click(function(){
     // Weights
     let answers = [];
     $( `[data-groups] [data-group='answers'] [data-item]` ).each(function( index ) {
-      ranking.push($(this).text());
+      ranking.push($(this).text().replace(/\s+/g, ''));
     });
     for (opt of OGOptions) {
       let i = ranking.indexOf(opt);
@@ -318,6 +318,6 @@ $('input.final').click(function(){
     document.execCommand("copy");
     $temp.remove();
     //swal('Copied to clipboard!');
-  })
+  });
 
 });
