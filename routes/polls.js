@@ -134,13 +134,14 @@ module.exports = (knex, room8) => {
     const templateVars = {};
 
     //get information about the poll
-    knex.select(knex.raw("polls.id, question, description, answers, options, submissions.id AS sub_id")).from('polls').join('submissions', 'polls.id', '=', 'submissions.poll_id')
+    knex.select(knex.raw("polls.id, question, description, answers, is_active, options, submissions.id AS sub_id")).from('polls').join('submissions', 'polls.id', '=', 'submissions.poll_id')
       .where('polls.id', '=',req.params.id) //params is only passing an ID
       .then((row) => {
 
         templateVars["question"] = row[0].question;
         templateVars["description"] = row[0].description;
         templateVars["options"] = row[0].options;
+        templateVars["is_active"] = row[0].is_active;
 
         let links = [];
         let answersProvided = [];
