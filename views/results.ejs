@@ -80,7 +80,7 @@
                 <% } %>
               <td class="subLink"><%= links[i] %></td>
               <% if (!answersProvided[i]) { %>
-              <td><button onclick="copyURL('#subLink')">Copy URL</button></td>
+              <td><button class="copyURL" id=<%= links[i] %>>Copy URL</button></td>
               <% } %>
             </tr>
             <% } %>
