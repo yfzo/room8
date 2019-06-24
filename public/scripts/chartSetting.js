@@ -12,7 +12,7 @@ $(function() {
             {
               label: response.options,
               backgroundColor: generateRandomColoursArray(response.options.length),
-              data: response.scores
+              data: convertPercentage(response.scores)
             }
           ]
         },
@@ -32,6 +32,15 @@ $(function() {
       console.log("failed");
     }
   });
+
+  function convertPercentage(scores) {
+    let percents = [];
+    scores.forEach((element) => {
+      percents.push(Math.round( (element * 100) * 10 ) / 10);
+    });
+
+    return percents
+  }
 
   function generateRandomColoursArray(numOfColours){
     let colours = [];
