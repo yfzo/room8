@@ -59,7 +59,6 @@ div.flex.heading2 {
 }
 
 /* styles for submitted-view */
-
 .main-container div {
   display: flex;
   justify-content: center;
@@ -82,13 +81,13 @@ div.flex.heading2 {
 }
 
 /* styles for polls view */
-
 .poll-container {
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
 }
+
 .poll-container form {
   display: flex;
   justify-content: center;
@@ -228,10 +227,6 @@ div.flex.heading2 {
   margin-bottom: 20px;
 }
 
-// #options-fs.poll-fs {
-//   position: relative;
-// }
-
 /*progressbar*/
 #progressbar {
   margin-bottom: 30px;
@@ -300,9 +295,11 @@ input[name="options"] {
   float: right;
   position: relative;
 }
+
 .close:hover {
   opacity: 1;
 }
+
 .close:before, .close:after {
   position: absolute;
   left: 9px;
@@ -312,9 +309,11 @@ input[name="options"] {
   background-color: #333;
   top: 13px;
 }
+
 .close:before {
   transform: rotate(45deg);
 }
+
 .close:after {
   transform: rotate(-45deg);
 }
@@ -334,11 +333,11 @@ ul {
   padding: 0;
 }
 
-  li {
-    list-style: none;
-    position: relative;
-    padding: 0 0 0 20px;
-  }
+li {
+  list-style: none;
+  position: relative;
+  padding: 0 0 0 20px;
+}
 
 input[name="voter-number"] {
   display: block;

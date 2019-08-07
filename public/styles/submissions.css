@@ -1,0 +1,32 @@
+.poll-container {
+  margin-top: 2em;
+}
+
+#poll-description h6 {
+  margin: 1em 0em 2em 0em;
+}
+
+.uk-card-default {
+  background: #987aa7;
+  color: #fff;
+  box-shadow: 6px 5px 10px -6px #000000;
+  border-radius: 12px;
+  opacity: 0.8;
+}
+
+div.options {
+  margin: 1em 0 4em 0;
+  width: 100%;
+}
+
+button#submit-answers:hover {
+  color: #616C76;
+}
+
+.uk-drag, .uk-drag * {
+  text-align: center;
+}
+
+#new-submission .options * {
+  width: 100%;
+}

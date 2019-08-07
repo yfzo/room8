@@ -1,0 +1,74 @@
+footer.flex {
+    justify-content: space-around;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+/* Trick for keeping footer at bottom of page */
+html, body{ height:100%; margin:0; }
+
+body{
+  display:flex;
+  flex-direction:column;
+}
+
+footer{
+  margin-top:auto;
+}
+
+/* footer styling */
+
+.footer-bar-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    padding: 16px;
+    width: 100%;
+    position: absolute;
+}
+
+.room8-love {
+    display: flex;
+    justify-content: flex-start;
+    align-items: stretch;
+    flex-direction: row;
+    white-space: nowrap;
+    flex-basis: 33%;
+    font-size: 80%;
+}
+
+.room8-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    align-self: center;
+    flex-basis: 33%;
+}
+
+.social-media {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: flex-end;
+    flex-basis: 33%;
+}
+
+.room8-container>span.room {
+    color: #3A1B3D;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 1em;
+}
+
+.room8-container>span.eight {
+    color: #5BBD9E;
+    font-family: 'Ubuntu', sans-serif;
+    // font-size: 0.75em;
+}
+
+// spaces out icons in footer
+.fa-facebook {
+    margin-right: 1em;
+}

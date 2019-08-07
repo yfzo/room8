@@ -1,0 +1,68 @@
+@import url(http://weloveiconfonts.com/api/?family=fontawesome);
+img#hero {
+  margin: 1em;
+}
+
+h1.header-description {
+  font-size: 6rem;
+}
+
+h4#header-description {
+  margin-bottom: 1.5em;
+}
+
+button.call-to-action {
+  padding: 2rem 2.5rem;
+  font-size: 1.7em;
+  color: #fff;
+  margin: 1em;
+}
+
+button.call-to-action:hover {
+  text-decoration: none;
+  color: #616C76;
+}
+
+a#header-link {
+  color: #fff;
+}
+
+a#header-link:hover {
+  text-decoration: none;
+  color: #616C76;
+}
+
+h2#features {
+  margin: 1em;
+  font-size: 3em;
+}
+
+p.feature {
+  margin-left: 3em;
+}
+
+p.feature.two {
+  margin-top: 6.5em;
+}
+
+p.feature.three {
+  margin-top: 5.5em;
+}
+
+img#second-feature, img#third-feature {
+  position: relative;
+  top: 3em;
+}
+
+div.flex.anonimage {
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+}
+
+div.flex.emails {
+  margin-top: 10em;
+}
+
+div.flex.anonimage {
+  margin-bottom: 7em;
+}

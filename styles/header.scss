@@ -1,0 +1,84 @@
+.logo-text {
+    color: #3A1B3D;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 3em;
+    letter-spacing: 1rem;
+}
+
+.logo-text>span {
+    color: #5BBD9E;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 0.75em;
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+// fixes div margin problems in header caused by div rule in layout.scss
+header div {
+    margin: 0;
+}
+
+#nav-bar {
+    padding: 0.75em 0;
+}
+
+button {
+    // background: linear-gradient(to top, #5BBD9E, #C3E7DB);
+    background-color: #5BBD9E;
+    border-radius: 2rem;
+    color: #fff;
+    display: inline-block;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.1rem;
+    min-width: 12rem;
+    overflow: hidden;
+    padding: 1rem 1.5rem;
+    position: relative;
+    text-decoration: none;
+    text-transform: uppercase;
+
+    &:hover,
+    &:focus {
+      outline: none; /*Prevent the default browser focus style. We don't need it since we're making our own.*/
+      background: rgb(218, 243, 235);
+      transition: opacity 0.2s ease;
+      &.button-text {
+        color: #541E5E;
+      }
+
+      &:after {
+        opacity: 1;
+      }
+    }
+
+    .button-text {
+      position: relative;
+      transition: color 0.2s ease;
+      z-index: 1;
+    }
+}
+
+// remove margins caused by other rules
+.row {
+    margin: 0;
+}
+
+// header shadow
+header {
+  -webkit-box-shadow: 0 8px 6px -6px rgb(168, 136, 172);
+     -moz-box-shadow: 0 8px 6px -6px rgb(168, 136, 172);
+          box-shadow: 0 8px 6px -6px rgb(168, 136, 172);
+}
+
+h1.logo-text:hover {
+  text-decoration: none;
+}
+
+a#title:hover {
+  text-decoration: none;
+}

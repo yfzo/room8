@@ -1,17 +1,92 @@
 <!DOCTYPE html>
+
 <html lang="en">
   <head>
-    <title>Home Page</title>
+    <title>room8 – Make decisions, easily & anonymously</title>
+    <!-- Favicon -->
+    <link rel="icon" href="/images/icon-8.png" type="image/png">
+    <link rel="shortcut icon" href="/images/icon-8.png" type="image/png">
 
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" type="text/css" />
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="/styles/header.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/footer.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/index.css" type="text/css" />
+    <!-- Logo Font -->
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans|Ubuntu&display=swap" rel="stylesheet">
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
   </head>
 
   <body>
-    <h1>Hello World!</h1>
+    <% include ../partials/_header %>
+
+    <main class="flex index">
+      <div class="flex">
+<!--         <h1><img id="hero" src="/images/header.png" alt="header image" width="930"></h1> -->
+        <h1><img id="hero" src="/images/header.png" alt="header image" width="660"></h1>
+      </div>
+      <div class="flex">
+        <h4 class="header-description">Make decisions with your roommates, friends, and workmates quickly and anonymously!</h4>
+      </div>
+      <div class="flex">
+        <button class="call-to-action"><a id="header-link" href="/polls/new">Create New Poll</a></button>
+      </div>
+      <div class="flex">
+        <h2 id="features">How it works</h2>
+      </div>
+
+      <div class="flex features">
+        <div class="feature flex">
+          <img src="/images/step_one.png" width="400">
+          <strong><p class="feature">Make a poll with your question and options!</p></strong>
+        </div>
+        <div class="feature flex">
+          <img id="second-feature" src="/images/step_two.png" width="400">
+          <strong><p class="feature two">Send out unique links to participants!</p></strong>
+        </div>
+        <div class="feature flex">
+          <img id="third-feature" src="/images/step_three.png" width="400">
+          <strong><p class="feature three">Make your decison based on feedback!</p></strong>
+        </div>
+      </div>
+
+      <div class="flex emails">
+        <div class="flex heading1"><h3>Instant e-mail notification</h3></div>
+        <div class="flex heading1"><p>Get poll updates and results directly in your inbox! Making decisions has never been easier!</p></div>
+        <img id="email" src="/images/emails.png" alt="Emails" width="600">
+      </div>
+
+      <div class="flex anonymous">
+        <div class="flex heading2"><h3>Make impartial decisions, anonymously!</h3></div>
+        <div class="flex heading2"><p>Make hard decisions with no bias with anonymous polling. You don't need to know who voted on what!</p></div>
+        <div class="flex anonimage"><img id="voting" alt="Voting" src="/images/voting.png" alt="" width="500"></div>
+      </div>
+
+      <div class="testimonial flex">
+        <div class="quote flex">
+          <h3>'I use room8 to make all my decisions!'</h3>
+        </div>
+        <div class="quote flex">
+          <p><img class="testimonial" src="http://placekitten.com/100/100" alt=""> - Some guy</p>
+        </div>
+      </div>
+
+      <div class="testimonial flex last">
+        <div class="quote flex">
+          <img src="/images/new-poll.png" alt="" width="800">
+        </div>
+        <div class="quote flex">
+          <button class="call-to-action"><a id="header-link" href="/polls/new">Make A New Poll Today!</a></button>
+        </div>
+      </div>
+
+    </main>
+
+    <% include ../partials/_footer %>
   </body>
 </html>
